@@ -1,3 +1,5 @@
 #这个文件可以是空的
-from .SrcLoaderBase import BaseSrcLoader
-from .SrcLoaderImp import SrcLoaderTxt,SrcLoaderCSV
+from .SrcLoaderBase import BaseParameterSrc,BaseSrcLoader
+from .SrcLoaderImp import ParameterSrcTxt,SrcLoaderTxt
+from .SrcLoaderImp import ParameterSrcCSV,SrcLoaderCSV
+
