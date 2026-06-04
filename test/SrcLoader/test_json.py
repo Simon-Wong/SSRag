@@ -23,8 +23,7 @@ def Test1_SrcLoaderJSON():
 def Test2_SrcLoaderJSON_to_documents():
     sl=SrcLoaderJSON()
 
-    src_param=ParameterSrcJSON( pathfile="test/data/blabla.json",
-                                jq_schema='"用户名"+.body.username + ",客户ID"+ .header.client_id + ",时间戳"+ (.header.timestamp | tostring)')
+    src_param=ParameterSrcJSON( pathfile="test/data/blabla.json")
     
     res = sl.load(src_param)
 
