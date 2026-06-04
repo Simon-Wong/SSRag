@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader
+from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc
 
 
 class ParameterSrcCSV(BaseParameterSrc):
@@ -10,5 +10,5 @@ class SrcLoaderCSV(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg):
-        print("SrcLoaderCSV load")
+    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+        return BaseResultSrc([])

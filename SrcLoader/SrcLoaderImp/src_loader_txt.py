@@ -1,8 +1,8 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader
-from pathlib import Path
-from langchain_core.documents import Document
+from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
 
-import os
+from pathlib import Path
+
+from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader
 
 class ParameterSrcTxt(BaseParameterSrc):
@@ -20,11 +20,14 @@ class SrcLoaderTxt(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->list[Document]:
+    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcTxt):
+
+            # 不同的子类这里使用不同的方式加载资源数据
             tl = TextLoader(src_param.pathfile, 
                                 encoding=src_param.encoding, 
                                 autodetect_encoding=src_param.autodetect_encoding)
-            return tl.load()
+
+            return ResultSrc(tl.load())
         else:
             raise ValueError("src_param must be a ParameterSrcTxt")
