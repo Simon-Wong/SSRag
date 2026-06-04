@@ -1,0 +1,83 @@
+from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+
+from pathlib import Path
+from typing import Callable, Dict,Literal,Any
+import bs4
+
+class ParameterSrcURL(BaseParameterSrc):
+    '''
+    一个网页加载器参数
+    封装了一些用的到的参数，用于加载网页文件
+    #公共参数
+    web_urls，网页URL列表
+    using_loader，指定使用的加载器，默认UnstructuredURLLoader
+    kwargs，其他参数，用于传递给加载器的构造函数
+
+    #UnstructuredURLLoader的专用参数,延迟到load方法中处理
+    continue_on_failure，是否继续加载失败的URL，默认True
+    mode，加载模式，默认single
+    show_progress，是否显示进度条，默认True
+
+    #WebBaseLoader的专用参数，下面几个在本类中处理，其他的延迟到load方法中处理
+    parse_only，指定解析的元素,默认None  
+    bs_kwargs，WebBaseLoader的参数，默认None
+    requests_kwargs，WebBaseLoader的参数，默认None
+    '''
+
+    web_urls: list[str]|str=None
+    using_loader:Literal["UnstructuredURLLoader","WebBaseLoader"]="UnstructuredURLLoader"
+    kwargs: Any = None
+
+    parse_only:str|None=None
+    bs_kwargs: Dict[str, Any]|None =None
+    requests_kwargs: Dict[str, Any]|None=None
+
+    def __init__(   self, 
+                    web_urls: list[str]|str,
+                    using_loader:Literal["UnstructuredURLLoader","WebBaseLoader"]="UnstructuredURLLoader", 
+                    **kwargs):
+        self.pathfile=None
+        self.web_urls=web_urls
+        self.using_loader=using_loader
+
+        parse_only=kwargs.pop("parse_only",None)
+        bs_kwargs=kwargs.pop("bs_kwargs",None)   
+
+        if parse_only is not None:
+            if bs_kwargs is None:
+                self.bs_kwargs={"parse_only": bs4.SoupStrainer(id=parse_only)}
+
+        self.requests_kwargs=kwargs.pop("requests_kwargs",{"headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}})
+        
+        self.kwargs=kwargs
+
+class SrcLoaderURL(BaseSrcLoader):
+    def __init__(self):
+        super().__init__()
+    
+    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+        if isinstance(src_param, ParameterSrcURL):
+            src_param:ParameterSrcURL=src_param
+            if src_param.using_loader=="UnstructuredURLLoader":
+
+                from langchain_community.document_loaders import UnstructuredURLLoader
+                argdict=src_param.kwargs
+                loader = UnstructuredURLLoader(urls=src_param.web_urls,
+                                continue_on_failure=argdict.pop("continue_on_failure",True),
+                                mode=argdict.pop("mode","single"),
+                                show_progress_bar=argdict.pop("show_progress_bar",False),
+                                **argdict)
+
+            elif src_param.using_loader=="WebBaseLoader":
+                src_param:ParameterSrcURL=src_param
+                from langchain_community.document_loaders import WebBaseLoader
+                argdict=src_param.kwargs
+                loader = WebBaseLoader( web_paths=src_param.web_urls,
+                                        bs_kwargs=src_param.bs_kwargs,
+                                        requests_kwargs=src_param.requests_kwargs,
+                                        **argdict)
+            
+            return ResultSrc(loader.load())
+            
+        else:
+            raise ValueError("src_param must be a ParameterSrcURL")
