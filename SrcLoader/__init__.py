@@ -3,6 +3,6 @@ from .SrcLoaderBase import BaseParameterSrc,BaseSrcLoader,BaseResultSrc
 from .SrcLoaderBase import ResultSrc
 
 from .SrcLoaderImp import ParameterSrcTxt,SrcLoaderTxt
-
 from .SrcLoaderImp import ParameterSrcCSV,SrcLoaderCSV
 from .SrcLoaderImp import ParameterSrcMD,SrcLoaderMD
+from .SrcLoaderImp import ParameterSrcJSON,SrcLoaderJSON

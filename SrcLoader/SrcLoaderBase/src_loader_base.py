@@ -9,8 +9,8 @@ class BaseParameterSrc:
     pathfile: str|Path # 资源文件路径
 
     def __init__(self, pathfile: str|Path):
-        self.pathfile = pathfile
-
+        self.pathfile = Path(pathfile).resolve()
+        
 
 class BaseResultSrc(ABC):
     def __init__(self):

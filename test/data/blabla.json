@@ -1,0 +1,17 @@
+{
+	"body": {
+		"password": "111",
+		"username": "aaa"
+	},
+	"header": {
+		"auth": {
+			"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTY0MzI3OTIsImlhdCI6MTc1NjM0NjM5MiwiaXNzIjoiZmluZGdvb2RzIiwicGVybWlzc2lvbnMiOiIxLDIsMyw0LDI0Iiwicm9sZSI6InN5c2FkbWluIiwic3ViIjoiMSIsInR5cGUiOiJub3JtYWwiLCJ1c2VyaWQiOiIxIiwidXNlcm5hbWUiOiJkZWZhdWx0X3N5c2FkbWluIn0.YkPMnXo1tqPA_2vS5K0BDpSwRJtKw7Lmf3lQSeeMXiA"
+		},
+		"client_id": "test1ondev",
+		"cmd": "change_password",
+		"msg_id": "1ae194a4-ee31-43b2-97c7-53cfc7f58023",
+		"operation": "request",
+		"timestamp": 1756346525149,
+		"version": "0.1"
+	}
+}
