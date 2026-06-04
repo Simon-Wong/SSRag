@@ -6,7 +6,10 @@ from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader
 
 class ParameterSrcTxt(BaseParameterSrc):
-    '''一个文本加载器参数'''
+    '''
+    一个txt加载器参数
+    封装了TextLoader的参数，用于加载txt文件
+    '''
     encoding: str|None = None
     autodetect_encoding: bool = False
 
