@@ -7,7 +7,13 @@ sys.path.append(str(ROOT_DIR))
 
 from SrcLoader import ParameterSrcTxt,SrcLoaderTxt
 
-if __name__ =='__main__':
-    src_param=ParameterSrcTxt()
+def Test1():
     sl=SrcLoaderTxt()
-    sl.load(src_param)
+
+    src_param=ParameterSrcTxt(pathfile="test/data/blabla.txt")
+    
+    docs = sl.load(src_param)
+    print(docs)
+
+if __name__ =='__main__':
+    Test1()
