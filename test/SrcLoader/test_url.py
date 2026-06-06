@@ -10,7 +10,7 @@ from SrcLoader import ParameterSrcURL,SrcLoaderURL,BaseResultSrc,ResultSrc
 def Test1_SrcLoaderURL():
     sl=SrcLoaderURL()
 
-    src_param=ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629"],
+    src_param=ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                 using_loader="UnstructuredURLLoader")
     
     res = sl.load(src_param)
@@ -30,7 +30,7 @@ def Test2_SrcLoaderURL_to_documents():
         os.environ["USER_AGENT"] = "SSRag/1.0.0"
         sl = SrcLoaderURL()
 
-        src_param = ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629"],
+        src_param = ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                     using_loader="WebBaseLoader",
                                     parse_only="cnblogs_post_body")
         
