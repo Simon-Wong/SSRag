@@ -4,7 +4,7 @@ md
 txt
 url
 
-
+jpg png
 doc docx
 html mhtml
 pdf
