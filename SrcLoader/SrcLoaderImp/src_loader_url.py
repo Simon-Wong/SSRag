@@ -18,7 +18,7 @@ class ParameterSrcURL(BaseParameterSrc):
     mode，加载模式，默认single
     show_progress，是否显示进度条，默认True
 
-    #WebBaseLoader的专用参数，下面几个在本类中处理，其他的延迟到load方法中处理
+    #WebBaseLoader的专用参数，延迟到load方法中处理
     parse_only，指定解析的元素,默认None  
     bs_kwargs，WebBaseLoader的参数，默认None
     requests_kwargs，WebBaseLoader的参数，默认None
@@ -40,15 +40,6 @@ class ParameterSrcURL(BaseParameterSrc):
         self.web_urls=web_urls
         self.using_loader=using_loader
 
-        parse_only=kwargs.pop("parse_only",None)
-        bs_kwargs=kwargs.pop("bs_kwargs",None)   
-
-        if parse_only is not None:
-            if bs_kwargs is None:
-                self.bs_kwargs={"parse_only": bs4.SoupStrainer(id=parse_only)}
-
-        self.requests_kwargs=kwargs.pop("requests_kwargs",{"headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}})
-        
         self.kwargs=kwargs
 
 class SrcLoaderURL(BaseSrcLoader):
@@ -57,10 +48,11 @@ class SrcLoaderURL(BaseSrcLoader):
     
     def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcURL):
-            src_param:ParameterSrcURL=src_param
+            src_param:ParameterSrcURL
             if src_param.using_loader=="UnstructuredURLLoader":
 
                 from langchain_community.document_loaders import UnstructuredURLLoader
+
                 argdict=src_param.kwargs
                 loader = UnstructuredURLLoader(urls=src_param.web_urls,
                                 continue_on_failure=argdict.pop("continue_on_failure",True),
@@ -69,12 +61,23 @@ class SrcLoaderURL(BaseSrcLoader):
                                 **argdict)
 
             elif src_param.using_loader=="WebBaseLoader":
-                src_param:ParameterSrcURL=src_param
+                src_param:ParameterSrcURL
+
                 from langchain_community.document_loaders import WebBaseLoader
+
                 argdict=src_param.kwargs
+                parse_only=argdict.pop("parse_only",None)
+                bs_kwargs=argdict.pop("bs_kwargs",None)   
+
+                if parse_only is not None:
+                    if bs_kwargs is None:
+                        bs_kwargs={"parse_only": bs4.SoupStrainer(id=parse_only)}
+
+                requests_kwargs=argdict.pop("requests_kwargs",{"headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}})
+                
                 loader = WebBaseLoader( web_paths=src_param.web_urls,
-                                        bs_kwargs=src_param.bs_kwargs,
-                                        requests_kwargs=src_param.requests_kwargs,
+                                        bs_kwargs=bs_kwargs,
+                                        requests_kwargs=requests_kwargs,
                                         **argdict)
             
             return ResultSrc(loader.load())

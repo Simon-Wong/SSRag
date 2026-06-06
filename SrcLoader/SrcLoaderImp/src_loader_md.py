@@ -26,7 +26,8 @@ class SrcLoaderMD(BaseSrcLoader):
     
     def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcMD):
-
+            src_param:ParameterSrcMD
+            
             loader = UnstructuredMarkdownLoader(src_param.pathfile,
                                                 mode=src_param.mode, 
                                                 **src_param.unstructured_kwargs)

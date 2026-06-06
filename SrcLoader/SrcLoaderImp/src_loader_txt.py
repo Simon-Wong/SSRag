@@ -13,7 +13,11 @@ class ParameterSrcTxt(BaseParameterSrc):
     encoding: str|None = None
     autodetect_encoding: bool = False
 
-    def __init__(self, pathfile: str|Path, encoding: str|None = None, autodetect_encoding: bool = False):
+    def __init__(   self, 
+                    pathfile: str|Path, 
+                    encoding: str|None = None, 
+                    autodetect_encoding: bool = False,
+                    **kwarg):
         super().__init__(pathfile)
 
         self.encoding = encoding
@@ -25,11 +29,12 @@ class SrcLoaderTxt(BaseSrcLoader):
     
     def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcTxt):
-
+            src_param:ParameterSrcTxt
+            
             # 不同的子类这里使用不同的方式加载资源数据
             tl = TextLoader(src_param.pathfile, 
-                                encoding=src_param.encoding, 
-                                autodetect_encoding=src_param.autodetect_encoding)
+                            encoding=src_param.encoding, 
+                            autodetect_encoding=src_param.autodetect_encoding)
 
             return ResultSrc(tl.load())
         else:

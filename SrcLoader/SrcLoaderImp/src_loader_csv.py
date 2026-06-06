@@ -41,7 +41,8 @@ class SrcLoaderCSV(BaseSrcLoader):
     
     def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcCSV):
-
+            src_param:ParameterSrcCSV
+            
             loader = CSVLoader(src_param.pathfile, 
                                 source_column=src_param.source_column,
                                 metadata_columns=src_param.metadata_columns,

@@ -44,7 +44,8 @@ class SrcLoaderJSON(BaseSrcLoader):
     
     def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
         if isinstance(src_param, ParameterSrcJSON):
-
+            src_param:ParameterSrcJSON
+            
             if src_param.using_loader=="JSONLoader":
 
                 from langchain_community.document_loaders import JSONLoader
@@ -52,14 +53,13 @@ class SrcLoaderJSON(BaseSrcLoader):
                 loader = JSONLoader(src_param.pathfile,
                                 jq_schema=argdict.get("jq_schema","tostring"),
                                 content_key=argdict.get("content_key"), 
-                                is_content_key_jq_parsable=argdict.get("is_content_key_jq_parsable"),
+                                is_content_key_jq_parsable=argdict.get("is_content_key_jq_parsable",False),
                                 metadata_func=argdict.get("metadata_func"),
                                 text_content=argdict.get("text_content",True),
                                 json_lines=argdict.get("json_lines",False))
 
-            elif src_param.using_loader=="":
-                argdict=src_param.kwargs
-                pass
+            elif src_param.using_loader=="fake_no_impl":
+                raise ValueError(f"the value of using_loader {src_param.using_loader}  is not implemented")
 
             return ResultSrc(loader.load())
             

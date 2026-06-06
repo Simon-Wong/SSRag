@@ -5,7 +5,10 @@ from unstructured.documents.elements import Element
 
 
 class BaseParameterSrc:
-    '''一个资源参数基类'''
+    '''
+    一个资源参数基类
+    参数都是一次性的，在一个load函数里使用过了，就不要再传给其他函数使用。
+    '''
     pathfile: str|Path # 资源文件路径
 
     def __init__(self, pathfile: str|Path):
