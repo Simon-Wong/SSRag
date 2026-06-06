@@ -5,3 +5,4 @@ from .src_loader_json import ParameterSrcJSON,SrcLoaderJSON
 from .src_loader_url import ParameterSrcURL,SrcLoaderURL
 from .src_loader_image_jpg_png import ParameterSrcImageJpgPng,SrcLoaderImageJpgPng
 from .src_loader_image_ocr import ParameterSrcImageOCR,SrcLoaderImageOCR
+from .src_loader_image_ocr_model import ParameterSrcImageOCRModel,SrcLoaderImageOCRModel

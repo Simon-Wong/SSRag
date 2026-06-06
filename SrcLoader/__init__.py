@@ -9,3 +9,4 @@ from .SrcLoaderImp import ParameterSrcJSON,SrcLoaderJSON
 from .SrcLoaderImp import ParameterSrcURL,SrcLoaderURL
 from .SrcLoaderImp import ParameterSrcImageJpgPng,SrcLoaderImageJpgPng
 from .SrcLoaderImp import ParameterSrcImageOCR,SrcLoaderImageOCR
+from .SrcLoaderImp import ParameterSrcImageOCRModel,SrcLoaderImageOCRModel
