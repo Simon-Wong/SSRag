@@ -12,3 +12,4 @@ from .SrcLoaderImp import ParameterSrcImageOCR,SrcLoaderImageOCR
 from .SrcLoaderImp import ParameterSrcImageOCRModel,SrcLoaderImageOCRModel
 from .SrcLoaderImp import ParameterSrcMHTML,SrcLoaderMHTML
 from .SrcLoaderImp import ParameterSrcHTML,SrcLoaderHTML
+from .SrcLoaderImp import ParameterSrcDocDocx,SrcLoaderDocDocx

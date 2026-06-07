@@ -37,7 +37,7 @@ source ~/.bash_profile
 
 tar -zxvf pg14.1.tar.gz
 
-tar -zxvf JinFengKeJi-20220225-05.tar.gz
+tar -zxvf JingFengKeJie-20220225-05.tar.gz
 
 ## file查看文件是x64还是x32
 
