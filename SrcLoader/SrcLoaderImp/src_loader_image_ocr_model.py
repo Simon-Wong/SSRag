@@ -13,10 +13,12 @@ class ParameterSrcImageOCRModel(BaseParameterSrc):
     图片文字识别工具的参数
     """
     def __init__(self, pathfile: str,
+                 max_retry: int = 3,
                  use_max_tokens: bool = True,
                  max_tokens: int = 1024,
                  **kwargs):
         super().__init__(pathfile)
+        self.max_retry=max_retry
         self.use_max_tokens=use_max_tokens
         self.max_tokens=max_tokens
         self.kwargs=kwargs
@@ -60,35 +62,51 @@ class SrcLoaderImageOCRModel(BaseSrcLoader):
         with open(src_param.pathfile.as_posix(), "rb") as f:
             base64_image = base64.b64encode(f.read()).decode("utf-8")
 
-        # 调用本地大模型
-        if src_param.use_max_tokens is True:
-            response = self.model.chat.completions.create(model="qwen3.5:9b",
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": "提取图片中所有可见文字，只输出文字内容，不要任何解释、格式和多余内容"},
-                            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}
-                        ]
-                    }
-                ],
-                max_tokens=src_param.max_tokens
-            )
+        suffix = src_param.pathfile.suffix.lower().strip('.')
+        if suffix == 'jpg':
+            mime_type = f"image/jpeg"
         else:
-            response = self.model.chat.completions.create(model="qwen3.5:9b",
-                            messages=[
-                                {
-                                    "role": "user",
-                                    "content": [
-                                        {"type": "text", "text": "提取图片中所有可见文字，只输出文字内容，不要任何解释、格式和多余内容"},
-                                        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{base64_image}"}}
-                                    ]
-                                }
-                            ]
-                        )
+            mime_type = f"image/{suffix}"
 
-        # 直接返回识别文字
-        res_text = response.choices[0].message.content.strip()
+        i=0
+        token_len=src_param.max_tokens 
+        while i<src_param.max_retry:
+            # 调用本地大模型
+            if src_param.use_max_tokens is True:
+                response = self.model.chat.completions.create(model="qwen3.5:9b",
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": "提取图片中所有可见文字，只输出文字内容，不要任何解释、格式和多余内容"},
+                                {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{base64_image}"}}
+                            ]
+                        }
+                    ],
+                    max_tokens=src_param.max_tokens
+                )
+            else:
+                response = self.model.chat.completions.create(model="qwen3.5:9b",
+                                messages=[
+                                    {
+                                        "role": "user",
+                                        "content": [
+                                            {"type": "text", "text": "提取图片中所有可见文字，只输出文字内容，不要任何解释、格式和多余内容"},
+                                            {"type": "image_url", "image_url": {"url": f"data:{mime_type};base64,{base64_image}"}}
+                                        ]
+                                    }
+                                ]
+                            )
+            i+=1
+        
+            # 直接返回识别文字
+            res_text = response.choices[0].message.content.strip()
+            if res_text!="":
+                break
+
+            finish_reason = response.choices[0].finish_reason
+            if finish_reason == "length":
+                token_len=int(token_len*1.5)
 
         # Step 2: 检测文本语言
         detected_lang = self._detect_language(res_text)
