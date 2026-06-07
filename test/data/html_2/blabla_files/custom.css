@@ -1,0 +1,10 @@
+.postcontent {
+    margin-top: 10px;
+    background-image: url(images/null.gif);
+    background-repeat: no-repeat;
+    font-size: 12px;
+    color: #303030;
+}
+#ad_c1,#ad_t2,#under_post_news,#ad_c2,#under_post_kb,#cnblogs_c1,#cnblogs_c2{
+    display:none;
+}
