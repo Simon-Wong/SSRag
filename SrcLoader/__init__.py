@@ -14,3 +14,4 @@ from .SrcLoaderImp import ParameterSrcMHTML,SrcLoaderMHTML
 from .SrcLoaderImp import ParameterSrcHTML,SrcLoaderHTML
 from .SrcLoaderImp import ParameterSrcDocDocx,SrcLoaderDocDocx
 from .SrcLoaderImp import ParameterSrcImageContent,SrcLoaderImageContent
+from .SrcLoaderImp import ParameterSrcXlsXlsx,SrcLoaderXlsXlsx
