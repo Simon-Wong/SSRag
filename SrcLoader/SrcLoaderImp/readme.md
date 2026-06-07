@@ -5,9 +5,9 @@ txt
 url
 jpg png
 mhtml
+html 
 
 doc docx
-html 
 pdf
 ppt pptx
 xls xlsx

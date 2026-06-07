@@ -15,7 +15,7 @@ def Test1_SrcLoaderImageJpgPng():
     res = sl.load(src_param)
     
     if isinstance(res, ResultSrc):
-        res:ResultSrc=res
+        res:ResultSrc
         print(res.src_type) 
         print(res.src_data)
 
