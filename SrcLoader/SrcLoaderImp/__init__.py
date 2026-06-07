@@ -9,3 +9,4 @@ from .src_loader_image_ocr_model import ParameterSrcImageOCRModel,SrcLoaderImage
 from .src_loader_mhtml import ParameterSrcMHTML,SrcLoaderMHTML
 from .src_loader_html import ParameterSrcHTML,SrcLoaderHTML
 from .src_loader_doc_docx import ParameterSrcDocDocx,SrcLoaderDocDocx
+from .src_loader_image_content import ParameterSrcImageContent,SrcLoaderImageContent
