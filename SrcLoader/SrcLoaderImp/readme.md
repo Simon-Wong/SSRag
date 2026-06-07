@@ -3,11 +3,11 @@ json
 md
 txt
 url
-
 jpg png
+mhtml
 
 doc docx
-html mhtml
+html 
 pdf
 ppt pptx
-
+xls xlsx
