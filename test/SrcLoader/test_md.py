@@ -22,7 +22,7 @@ def Test1_SrcLoaderMD():
 def Test2_SrcLoaderMD_to_documents():
     sl=SrcLoaderMD()
 
-    src_param=ParameterSrcMD(pathfile="test/data/blabla.md")
+    src_param=ParameterSrcMD(pathfile="test/data/blabla.md",parse_pic=True)
     
     res = sl.load(src_param)
 
@@ -31,5 +31,5 @@ def Test2_SrcLoaderMD_to_documents():
     print(res2.src_data)
 
 if __name__ =='__main__':
-    Test1_SrcLoaderMD()
+    #Test1_SrcLoaderMD()
     Test2_SrcLoaderMD_to_documents() 
