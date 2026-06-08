@@ -12,3 +12,4 @@ from .src_loader_doc_docx import ParameterSrcDocDocx,SrcLoaderDocDocx
 from .src_loader_image_content import ParameterSrcImageContent,SrcLoaderImageContent
 from .src_loader_xls_xlsx import ParameterSrcXlsXlsx,SrcLoaderXlsXlsx
 from .src_loader_pdf_model import ParameterSrcPDFModel,SrcLoaderPDFModel
+from .src_loader_pdf import ParameterSrcPDF,SrcLoaderPDF

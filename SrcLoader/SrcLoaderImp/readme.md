@@ -7,9 +7,9 @@ jpg png，支持大模型识别
 mhtml
 html，支持纯html和包含图片的html文件目录
 xls xlsx，支持多个sheet
-
-doc docx
 pdf
+doc docx
+
 ppt pptx
 
 ===========
