@@ -31,5 +31,5 @@ def Test2_SrcLoaderMD_to_documents():
     print(res2.src_data)
 
 if __name__ =='__main__':
-    #Test1_SrcLoaderMD()
+    Test1_SrcLoaderMD()
     Test2_SrcLoaderMD_to_documents() 
