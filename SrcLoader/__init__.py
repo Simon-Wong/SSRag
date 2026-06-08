@@ -17,3 +17,4 @@ from .SrcLoaderImp import ParameterSrcImageContent,SrcLoaderImageContent
 from .SrcLoaderImp import ParameterSrcXlsXlsx,SrcLoaderXlsXlsx
 from .SrcLoaderImp import ParameterSrcPDFModel,SrcLoaderPDFModel
 from .SrcLoaderImp import ParameterSrcPDF,SrcLoaderPDF
+from .SrcLoaderImp import ParameterSrcPPT,SrcLoaderPPT

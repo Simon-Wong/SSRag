@@ -13,3 +13,4 @@ from .src_loader_image_content import ParameterSrcImageContent,SrcLoaderImageCon
 from .src_loader_xls_xlsx import ParameterSrcXlsXlsx,SrcLoaderXlsXlsx
 from .src_loader_pdf_model import ParameterSrcPDFModel,SrcLoaderPDFModel
 from .src_loader_pdf import ParameterSrcPDF,SrcLoaderPDF
+from .src_loader_ppt import ParameterSrcPPT,SrcLoaderPPT
