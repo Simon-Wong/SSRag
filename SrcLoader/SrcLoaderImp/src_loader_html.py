@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Dict,Any
@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from langchain_core.documents import Document
 
 
-class ParameterSrcHTML(BaseParameterSrc):
+class ParameterSrcLoderHTML(BaseParameterSrcLoder):
     '''
     一个html加载器参数
     封装了一些用的到的参数，用于加载html文件
@@ -39,9 +39,9 @@ class SrcLoaderHTML(BaseSrcLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcHTML):
-            src_param:ParameterSrcHTML
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderHTML):
+            src_param:ParameterSrcLoderHTML
 
             with open(src_param.pathfile.as_posix(), "r", encoding=src_param.open_encoding) as file:
                 soup = BeautifulSoup(file, "html.parser")
@@ -63,7 +63,7 @@ class SrcLoaderHTML(BaseSrcLoader):
 
 
             metadata = {"source": src_param.pathfile.as_posix(),"type":"html"}
-            return ResultSrc([Document(page_content=content, metadata=metadata)])   
+            return ResultSrcLoder([Document(page_content=content, metadata=metadata)])   
 
         else:
-            raise ValueError("src_param must be a ParameterSrcHTML")
+            raise ValueError("src_param must be a ParameterSrcLoderHTML")

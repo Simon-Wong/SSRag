@@ -1,6 +1,6 @@
-from SrcLoader import ParameterSrcTxt,SrcLoaderTxt
+from SrcLoader import ParameterSrcLoderTxt,SrcLoaderTxt
 
 if __name__ =='__main__':
-    src_param=ParameterSrcTxt()
+    src_param=ParameterSrcLoderTxt()
     sl=SrcLoaderTxt()
     sl.load(src_param)

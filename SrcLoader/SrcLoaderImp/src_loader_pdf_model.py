@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pdf2image import convert_from_path
 
@@ -9,7 +9,7 @@ from openai import OpenAI
 from langchain_core.documents import Document
 
 
-class ParameterSrcPDFModel(BaseParameterSrc):
+class ParameterSrcLoderPDFModel(BaseParameterSrcLoder):
     """
     PDF文字识别工具的参数
     """
@@ -35,7 +35,7 @@ class SrcLoaderPDFModel(BaseSrcLoader):
     def __init__(self):
         self.model:OpenAI = OpenAI(base_url="http://192.168.0.107:11434/v1",api_key="fake_key")
 
-    def convert_pdf_to_pic(self,src_param: ParameterSrcPDFModel)->list[str]:
+    def convert_pdf_to_pic(self,src_param: ParameterSrcLoderPDFModel)->list[str]:
         """
         将PDF转换为图片格式，返回图片路径列表
         """
@@ -53,13 +53,13 @@ class SrcLoaderPDFModel(BaseSrcLoader):
 
         return image_paths
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
         """本地多模态大模型提取PDF内容"""
 
-        if not isinstance(src_param, ParameterSrcPDFModel):
-            raise ValueError("src_param must be a ParameterSrcPDFModel")
+        if not isinstance(src_param, ParameterSrcLoderPDFModel):
+            raise ValueError("src_param must be a ParameterSrcLoderPDFModel")
 
-        src_param:ParameterSrcPDFModel
+        src_param:ParameterSrcLoderPDFModel
         image_paths:list[str]=[]
         all_documents=[]
 
@@ -131,7 +131,7 @@ class SrcLoaderPDFModel(BaseSrcLoader):
                 except Exception:
                     pass
         
-        return ResultSrc(all_documents)
+        return ResultSrcLoder(all_documents)
 
 
 

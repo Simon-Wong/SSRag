@@ -1,5 +1,5 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
-from .src_loader_image_content import ParameterSrcImageContent,SrcLoaderImageContent
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
+from .src_loader_image_content import ParameterSrcLoderImageContent,SrcLoaderImageContent
 
 
 from pathlib import Path
@@ -9,7 +9,7 @@ from typing import Any
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 
 
-class ParameterSrcMD(BaseParameterSrc):
+class ParameterLoderSrcMD(BaseParameterSrcLoder):
     '''
     一个MD加载器参数
     封装了UnstructuredMarkdownLoader的参数，用于加载MD文件
@@ -40,9 +40,9 @@ class SrcLoaderMD(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcMD):
-            src_param:ParameterSrcMD
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterLoderSrcMD):
+            src_param:ParameterLoderSrcMD
             
             loader = UnstructuredMarkdownLoader(src_param.pathfile,
                                                 mode=src_param.mode, 
@@ -58,15 +58,15 @@ class SrcLoaderMD(BaseSrcLoader):
                             pathimg=tmp.resolve().as_posix()
                         else:
                             pathimg=pathimg.as_posix()
-                        src_param2=ParameterSrcImageContent(pathfile=pathimg)  
+                        src_param2=ParameterSrcLoderImageContent(pathfile=pathimg)  
                         sl=SrcLoaderImageContent()
                         res = sl.load(src_param2)    
-                        if isinstance(res, ResultSrc):
-                            res:ResultSrc
+                        if isinstance(res, ResultSrcLoder):
+                            res:ResultSrcLoder
                             print(res.src_data)
                             doc.metadata["image_content"]=res.src_data[0].page_content
 
-            return ResultSrc(all_documents)
+            return ResultSrcLoder(all_documents)
             
         else:
-            raise ValueError("src_param must be a ParameterSrcMD")
+            raise ValueError("src_param must be a ParameterLoderSrcMD")

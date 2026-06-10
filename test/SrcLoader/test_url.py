@@ -5,18 +5,18 @@ ROOT_DIR=Path(__file__).parent.parent.parent
 #print(ROOT_DIR)
 sys.path.append(str(ROOT_DIR))
 
-from SrcLoader import ParameterSrcURL,SrcLoaderURL,BaseResultSrc,ResultSrc
+from SrcLoader import ParameterSrcLoderURL,SrcLoaderURL,BaseResultSrcLoder,ResultSrcLoder
 
 def Test1_SrcLoaderURL():
     sl=SrcLoaderURL()
 
-    src_param=ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
+    src_param=ParameterSrcLoderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                 using_loader="UnstructuredURLLoader")
     
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type)
         print(res.src_data)
 
@@ -30,13 +30,13 @@ def Test2_SrcLoaderURL_to_documents():
         os.environ["USER_AGENT"] = "SSRag/1.0.0"
         sl = SrcLoaderURL()
 
-        src_param = ParameterSrcURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
+        src_param = ParameterSrcLoderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                     using_loader="WebBaseLoader",
                                     parse_only="cnblogs_post_body")
         
         res = sl.load(src_param)
 
-        res2 = ResultSrc(res.to_documents())
+        res2 = ResultSrcLoder(res.to_documents())
         print(res2.src_type)
         print(res2.src_data)
 

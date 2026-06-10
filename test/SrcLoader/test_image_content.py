@@ -5,25 +5,25 @@ ROOT_DIR=Path(__file__).parent.parent.parent
 #print(ROOT_DIR)
 sys.path.append(str(ROOT_DIR))
 
-from SrcLoader import ParameterSrcImageContent,SrcLoaderImageContent,BaseResultSrc,ResultSrc
+from SrcLoader import ParameterSrcLoderImageContent,SrcLoaderImageContent,BaseResultSrcLoder,ResultSrcLoder
 
 def Test1_SrcLoaderImageContent():
     sl=SrcLoaderImageContent()
 
-    src_param=ParameterSrcImageContent(pathfile="test/data/blabla.PNG")
+    src_param=ParameterSrcLoderImageContent(pathfile="test/data/blabla.PNG")
     
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type) 
         print(res.src_data)
 
-    src_param=ParameterSrcImageContent(pathfile="test/data/blabla.PNG",max_tokens=500)
+    src_param=ParameterSrcLoderImageContent(pathfile="test/data/blabla.PNG",max_tokens=500)
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type) 
         print(res.src_data)
     
@@ -31,11 +31,11 @@ def Test1_SrcLoaderImageContent():
 def Test2_SrcLoaderImageContent_to_documents():
     sl=SrcLoaderImageContent()
 
-    src_param=ParameterSrcImageContent(pathfile="test/data/blabla.JPG")  
+    src_param=ParameterSrcLoderImageContent(pathfile="test/data/blabla.JPG")  
     
     res = sl.load(src_param)
 
-    res2=ResultSrc(res.to_documents())
+    res2=ResultSrcLoder(res.to_documents())
     print(res2.src_type) 
     print(res2.src_data)
 

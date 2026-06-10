@@ -1,10 +1,10 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Callable, Dict,Literal,Any
 
 
-class ParameterSrcPDF(BaseParameterSrc):
+class ParameterSrcLoderPDF(BaseParameterSrcLoder):
     '''
     一个PDF加载器参数
     封装了UnstructuredLoader的参数，用于加载PDF文件
@@ -34,9 +34,9 @@ class SrcLoaderPDF(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcPDF):
-            src_param:ParameterSrcPDF
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderPDF):
+            src_param:ParameterSrcLoderPDF
             
             if src_param.using_loader=="UnstructuredLoader":
 
@@ -48,7 +48,7 @@ class SrcLoaderPDF(BaseSrcLoader):
             elif src_param.using_loader=="fake_no_impl":
                 raise ValueError(f"the value of using_loader {src_param.using_loader}  is not implemented")
 
-            return ResultSrc(loader.load())
+            return ResultSrcLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterSrcPDF")
+            raise ValueError("src_param must be a ParameterSrcLoderPDF")

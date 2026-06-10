@@ -1,10 +1,10 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Callable, Dict,Literal,Any
 import bs4
 
-class ParameterSrcURL(BaseParameterSrc):
+class ParameterSrcLoderURL(BaseParameterSrcLoder):
     '''
     一个网页加载器参数
     封装了一些用的到的参数，用于加载网页文件
@@ -46,9 +46,9 @@ class SrcLoaderURL(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcURL):
-            src_param:ParameterSrcURL
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderURL):
+            src_param:ParameterSrcLoderURL
             if src_param.using_loader=="UnstructuredURLLoader":
 
                 from langchain_community.document_loaders import UnstructuredURLLoader
@@ -61,7 +61,7 @@ class SrcLoaderURL(BaseSrcLoader):
                                 **argdict)
 
             elif src_param.using_loader=="WebBaseLoader":
-                src_param:ParameterSrcURL
+                src_param:ParameterSrcLoderURL
 
                 from langchain_community.document_loaders import WebBaseLoader
 
@@ -80,7 +80,7 @@ class SrcLoaderURL(BaseSrcLoader):
                                         requests_kwargs=requests_kwargs,
                                         **argdict)
             
-            return ResultSrc(loader.load())
+            return ResultSrcLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterSrcURL")
+            raise ValueError("src_param must be a ParameterSrcLoderURL")

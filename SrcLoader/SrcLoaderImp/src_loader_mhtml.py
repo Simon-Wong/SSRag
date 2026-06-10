@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Dict,Any
@@ -7,7 +7,7 @@ from langchain_community.document_loaders import MHTMLLoader
 import bs4
 
 
-class ParameterSrcMHTML(BaseParameterSrc):
+class ParameterSrcLoderMHTML(BaseParameterSrcLoder):
     '''
     一个mhtml加载器参数
     封装了一些用的到的参数，用于加载mhtml文件
@@ -46,9 +46,9 @@ class SrcLoaderMHTML(BaseSrcLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcMHTML):
-            src_param:ParameterSrcMHTML
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderMHTML):
+            src_param:ParameterSrcLoderMHTML
 
 
             loader = MHTMLLoader(file_path=src_param.pathfile,
@@ -56,7 +56,7 @@ class SrcLoaderMHTML(BaseSrcLoader):
                                 bs_kwargs=src_param.bs_kwargs,
                                 get_text_separator=src_param.get_text_separator)
 
-            return ResultSrc(loader.load())
+            return ResultSrcLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterSrcMHTML")
+            raise ValueError("src_param must be a ParameterSrcLoderMHTML")

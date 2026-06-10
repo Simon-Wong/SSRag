@@ -1,11 +1,11 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from rapidocr_onnxruntime import RapidOCR
 from langdetect import detect, LangDetectException
 from langchain_core.documents import Document
 
 
-class ParameterSrcImageOCR(BaseParameterSrc):
+class ParameterSrcLoderImageOCR(BaseParameterSrcLoder):
     """
     图片文字识别工具的参数
     """
@@ -41,9 +41,9 @@ class SrcLoaderImageOCR(BaseSrcLoader):
                         "ko": "korean"
                         }
 
-    def _ocr_with_model(self,src_param: ParameterSrcImageOCR, model: RapidOCR = None) -> str:
+    def _ocr_with_model(self,src_param: ParameterSrcLoderImageOCR, model: RapidOCR = None) -> str:
         """使用指定模型执行OCR识别"""
-        src_param:ParameterSrcImageOCR
+        src_param:ParameterSrcLoderImageOCR
 
         if model is None:
             model = self.model
@@ -65,13 +65,13 @@ class SrcLoaderImageOCR(BaseSrcLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
         """自动语言适配的完整OCR流程"""
 
-        if not isinstance(src_param, ParameterSrcImageOCR):
-            raise ValueError("src_param must be a ParameterSrcImageOCR")
+        if not isinstance(src_param, ParameterSrcLoderImageOCR):
+            raise ValueError("src_param must be a ParameterSrcLoderImageOCR")
 
-        src_param:ParameterSrcImageOCR
+        src_param:ParameterSrcLoderImageOCR
 
         # Step 1: 先用默认模型（中英文混合）获取初步文本
         res_text = self._ocr_with_model(src_param)
@@ -94,5 +94,5 @@ class SrcLoaderImageOCR(BaseSrcLoader):
             "image_type":src_param.pathfile.suffix[1:] if src_param.pathfile.suffix else "unknown"
         }
 
-        return ResultSrc([Document(page_content=res_text, metadata=metadata)])
+        return ResultSrcLoder([Document(page_content=res_text, metadata=metadata)])
             

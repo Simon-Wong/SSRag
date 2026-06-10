@@ -5,25 +5,25 @@ ROOT_DIR=Path(__file__).parent.parent.parent
 #print(ROOT_DIR)
 sys.path.append(str(ROOT_DIR))
 
-from SrcLoader import ParameterSrcPDFModel,SrcLoaderPDFModel,BaseResultSrc,ResultSrc
+from SrcLoader import ParameterSrcLoderPDFModel,SrcLoaderPDFModel,BaseResultSrcLoder,ResultSrcLoder
 
 def Test1_SrcLoaderPDFModel():
     sl=SrcLoaderPDFModel()
 
-    src_param=ParameterSrcPDFModel(pathfile="test/data/blabla2.pdf")
+    src_param=ParameterSrcLoderPDFModel(pathfile="test/data/blabla2.pdf")
     
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type) 
         print(res.src_data)
 
-    src_param=ParameterSrcPDFModel(pathfile="test/data/blabla2.pdf",max_tokens=500)
+    src_param=ParameterSrcLoderPDFModel(pathfile="test/data/blabla2.pdf",max_tokens=500)
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type) 
         print(res.src_data)
     
@@ -31,11 +31,11 @@ def Test1_SrcLoaderPDFModel():
 def Test2_SrcLoaderPDFModel_to_documents():
     sl=SrcLoaderPDFModel()
 
-    src_param=ParameterSrcPDFModel(pathfile="test/data/blabla2.pdf")  
+    src_param=ParameterSrcLoderPDFModel(pathfile="test/data/blabla2.pdf")  
     
     res = sl.load(src_param)
 
-    res2=ResultSrc(res.to_documents())
+    res2=ResultSrcLoder(res.to_documents())
     print(res2.src_type) 
     print(res2.src_data)
 

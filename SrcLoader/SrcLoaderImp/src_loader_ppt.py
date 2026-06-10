@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import IO
@@ -6,7 +6,7 @@ from typing import IO
 from unstructured.partition.ppt import partition_ppt
 from langchain_core.documents import Document
 
-class ParameterSrcPPT(BaseParameterSrc):
+class ParameterSrcLoderPPT(BaseParameterSrcLoder):
     '''
     一个PPT加载器参数
     封装了partition_ppt参数，用于加载PPT文件
@@ -31,9 +31,9 @@ class SrcLoaderPPT(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcPPT):
-            src_param:ParameterSrcPPT
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderPPT):
+            src_param:ParameterSrcLoderPPT
             all_documents=[]        
             ppt_elements = partition_ppt(src_param.pathfile, 
                                   file=src_param.file,
@@ -50,6 +50,6 @@ class SrcLoaderPPT(BaseSrcLoader):
 
                 all_documents.append(Document(page_content=element.text, metadata= metadata))
 
-            return ResultSrc(all_documents) 
+            return ResultSrcLoder(all_documents) 
         else:
-            raise ValueError("src_param must be a ParameterSrcPPT")
+            raise ValueError("src_param must be a ParameterSrcLoderPPT")

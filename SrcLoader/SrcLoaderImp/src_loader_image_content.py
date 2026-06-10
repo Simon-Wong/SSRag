@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 import base64
 import os
@@ -8,7 +8,7 @@ from langdetect import detect, LangDetectException
 from langchain_core.documents import Document
 
 
-class ParameterSrcImageContent(BaseParameterSrc):
+class ParameterSrcLoderImageContent(BaseParameterSrcLoder):
     """
     图片文字识别工具的参数
     """
@@ -32,13 +32,13 @@ class SrcLoaderImageContent(BaseSrcLoader):
     def __init__(self):
         self.model:OpenAI = OpenAI(base_url="http://192.168.0.107:11434/v1",api_key="fake_key")
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
         """本地多模态大模型提取图片内容"""
 
-        if not isinstance(src_param, ParameterSrcImageContent):
-            raise ValueError("src_param must be a ParameterSrcImageContent")
+        if not isinstance(src_param, ParameterSrcLoderImageContent):
+            raise ValueError("src_param must be a ParameterSrcLoderImageContent")
 
-        src_param:ParameterSrcImageContent
+        src_param:ParameterSrcLoderImageContent
 
         # 读取图片转base64
         with open(src_param.pathfile.as_posix(), "rb") as f:
@@ -97,5 +97,5 @@ class SrcLoaderImageContent(BaseSrcLoader):
             "image_type":suffix if suffix else "unknown"
         }
 
-        return ResultSrc([Document(page_content=res_text, metadata=metadata)])
+        return ResultSrcLoder([Document(page_content=res_text, metadata=metadata)])
             

@@ -1,11 +1,11 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Dict,Sequence
 
 from langchain_community.document_loaders import CSVLoader
 
-class ParameterSrcCSV(BaseParameterSrc):
+class ParameterSrcLoderCSV(BaseParameterSrcLoder):
     '''
     一个CSV加载器参数
     封装了CSVLoader的参数，用于加载CSV文件
@@ -39,9 +39,9 @@ class SrcLoaderCSV(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcCSV):
-            src_param:ParameterSrcCSV
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderCSV):
+            src_param:ParameterSrcLoderCSV
             
             loader = CSVLoader(src_param.pathfile, 
                                 source_column=src_param.source_column,
@@ -51,6 +51,6 @@ class SrcLoaderCSV(BaseSrcLoader):
                                 autodetect_encoding=src_param.autodetect_encoding, 
                                 content_columns=src_param.content_columns)
     
-            return ResultSrc(loader.load())
+            return ResultSrcLoder(loader.load())
         else:
-            raise ValueError("src_param must be a ParameterSrcCSV")
+            raise ValueError("src_param must be a ParameterSrcLoderCSV")

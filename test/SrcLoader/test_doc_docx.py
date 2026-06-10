@@ -5,28 +5,28 @@ ROOT_DIR=Path(__file__).parent.parent.parent
 #print(ROOT_DIR)
 sys.path.append(str(ROOT_DIR))
 
-from SrcLoader import ParameterSrcDocDocx,SrcLoaderDocDocx,BaseResultSrc,ResultSrc
+from SrcLoader import ParameterSrcLoderDocDocx,SrcLoaderDocDocx,BaseResultSrcLoder,ResultSrcLoder
 
 def Test1_SrcLoaderDocDocx():
     sl=SrcLoaderDocDocx()
 
-    src_param=ParameterSrcDocDocx(pathfile="test/data/blabla.doc")
+    src_param=ParameterSrcLoderDocDocx(pathfile="test/data/blabla.doc")
     
     res = sl.load(src_param)
 
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type)
         print(res.src_data)
 
 def Test2_SrcLoaderDocDocx_to_documents():
     sl=SrcLoaderDocDocx()
 
-    src_param=ParameterSrcDocDocx(pathfile="test/data/blabla.docx")
+    src_param=ParameterSrcLoderDocDocx(pathfile="test/data/blabla.docx")
     
     res = sl.load(src_param)
     
-    res2=ResultSrc(res.to_documents())
+    res2=ResultSrcLoder(res.to_documents())
     print(res2.src_type) 
     print(res2.src_data)
 

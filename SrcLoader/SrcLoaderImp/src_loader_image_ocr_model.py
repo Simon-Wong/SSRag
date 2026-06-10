@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 import base64
 import os
@@ -8,7 +8,7 @@ from langdetect import detect, LangDetectException
 from langchain_core.documents import Document
 
 
-class ParameterSrcImageOCRModel(BaseParameterSrc):
+class ParameterSrcLoderImageOCRModel(BaseParameterSrcLoder):
     """
     图片文字识别工具的参数
     """
@@ -50,13 +50,13 @@ class SrcLoaderImageOCRModel(BaseSrcLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
         """本地多模态大模型提取图片所有文字（通用OCR）"""
 
-        if not isinstance(src_param, ParameterSrcImageOCRModel):
-            raise ValueError("src_param must be a ParameterSrcImageOCRModel")
+        if not isinstance(src_param, ParameterSrcLoderImageOCRModel):
+            raise ValueError("src_param must be a ParameterSrcLoderImageOCRModel")
 
-        src_param:ParameterSrcImageOCRModel
+        src_param:ParameterSrcLoderImageOCRModel
 
         # 读取图片转base64
         with open(src_param.pathfile.as_posix(), "rb") as f:
@@ -122,5 +122,5 @@ class SrcLoaderImageOCRModel(BaseSrcLoader):
             "image_type":src_param.pathfile.suffix[1:] if src_param.pathfile.suffix else "unknown"
         }
 
-        return ResultSrc([Document(page_content=res_text, metadata=metadata)])
+        return ResultSrcLoder([Document(page_content=res_text, metadata=metadata)])
             

@@ -5,28 +5,28 @@ ROOT_DIR=Path(__file__).parent.parent.parent
 #print(ROOT_DIR)
 sys.path.append(str(ROOT_DIR))
 
-from SrcLoader import ParameterSrcImageJpgPng,SrcLoaderImageJpgPng,BaseResultSrc,ResultSrc
+from SrcLoader import ParameterSrcLoderImageJpgPng,SrcLoaderImageJpgPng,BaseResultSrcLoder,ResultSrcLoder
 
 def Test1_SrcLoaderImageJpgPng():
     sl=SrcLoaderImageJpgPng()
 
-    src_param=ParameterSrcImageJpgPng(pathfile="test/data/blabla.PNG")
+    src_param=ParameterSrcLoderImageJpgPng(pathfile="test/data/blabla.PNG")
     
     res = sl.load(src_param)
     
-    if isinstance(res, ResultSrc):
-        res:ResultSrc
+    if isinstance(res, ResultSrcLoder):
+        res:ResultSrcLoder
         print(res.src_type) 
         print(res.src_data)
 
 def Test2_SrcLoaderImageJpgPng_to_documents():
     sl=SrcLoaderImageJpgPng()
 
-    src_param=ParameterSrcImageJpgPng(pathfile="test/data/blabla.JPG")  
+    src_param=ParameterSrcLoderImageJpgPng(pathfile="test/data/blabla.JPG")  
     
     res = sl.load(src_param)
 
-    res2=ResultSrc(res.to_documents())
+    res2=ResultSrcLoder(res.to_documents())
     print(res2.src_type) 
     print(res2.src_data)
 

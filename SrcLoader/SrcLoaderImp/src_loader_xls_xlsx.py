@@ -1,4 +1,4 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Dict,Sequence
@@ -135,7 +135,7 @@ class CSVLoader_XlsXlsx(CSVLoader):
             yield Document(page_content=content, metadata=metadata)
 
 
-class ParameterSrcXlsXlsx(BaseParameterSrc):
+class ParameterSrcLoderXlsXlsx(BaseParameterSrcLoder):
     '''
     一个Excel加载器参数
     封装了CSVLoader的参数，用于加载Excel文件
@@ -176,9 +176,9 @@ class SrcLoaderXlsXlsx(BaseSrcLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcXlsXlsx):
-            src_param:ParameterSrcXlsXlsx
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderXlsXlsx):
+            src_param:ParameterSrcLoderXlsXlsx
             all_documents=[]
 
             # 不同的子类这里使用不同的方式加载资源数据
@@ -205,7 +205,7 @@ class SrcLoaderXlsXlsx(BaseSrcLoader):
                 for csv_path in csv_files:
                     os.remove(csv_path)
             
-            return ResultSrc(all_documents)
+            return ResultSrcLoder(all_documents)
 
         else:
-            raise ValueError("src_param must be a ParameterSrcXlsXlsx")
+            raise ValueError("src_param must be a ParameterSrcLoderXlsXlsx")

@@ -1,10 +1,10 @@
-from ..SrcLoaderBase import BaseParameterSrc, BaseSrcLoader, BaseResultSrc,ResultSrc
+from ..SrcLoaderBase import BaseParameterSrcLoder, BaseSrcLoader, BaseResultSrcLoder,ResultSrcLoder
 
 from pathlib import Path
 from typing import Callable, Dict,Literal,Any
 
 
-class ParameterSrcJSON(BaseParameterSrc):
+class ParameterSrcLoderJSON(BaseParameterSrcLoder):
     '''
     一个JSON加载器参数
     封装了JSONLoader的参数，用于加载JSON文件
@@ -42,9 +42,9 @@ class SrcLoaderJSON(BaseSrcLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
-        if isinstance(src_param, ParameterSrcJSON):
-            src_param:ParameterSrcJSON
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
+        if isinstance(src_param, ParameterSrcLoderJSON):
+            src_param:ParameterSrcLoderJSON
             
             if src_param.using_loader=="JSONLoader":
 
@@ -61,7 +61,7 @@ class SrcLoaderJSON(BaseSrcLoader):
             elif src_param.using_loader=="fake_no_impl":
                 raise ValueError(f"the value of using_loader {src_param.using_loader}  is not implemented")
 
-            return ResultSrc(loader.load())
+            return ResultSrcLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterSrcJSON")
+            raise ValueError("src_param must be a ParameterSrcLoderJSON")

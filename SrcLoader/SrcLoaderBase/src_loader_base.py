@@ -4,7 +4,7 @@ from langchain_core.documents import Document
 from unstructured.documents.elements import Element 
 
 
-class BaseParameterSrc:
+class BaseParameterSrcLoder:
     '''
     一个资源参数基类
     参数都是一次性的，在一个load函数里使用过了，就不要再传给其他函数使用。
@@ -15,7 +15,7 @@ class BaseParameterSrc:
         self.pathfile = Path(pathfile).resolve()
         
 
-class BaseResultSrc(ABC):
+class BaseResultSrcLoder(ABC):
     def __init__(self):
         pass
 
@@ -27,7 +27,7 @@ class BaseResultSrc(ABC):
         '''    
         pass
 
-class ResultSrc(BaseResultSrc):
+class ResultSrcLoder(BaseResultSrcLoder):
     '''一个资源结果基类'''
     src_data: list[Document]|list[Element] = None # 资源文档列表
     src_type: str = None # 资源类型
@@ -58,10 +58,10 @@ class ResultSrc(BaseResultSrc):
 
 class BaseSrcLoader(ABC):
     '''一个资源加载器基类'''
-    src_param: BaseParameterSrc = None # 资源参数
+    src_param: BaseParameterSrcLoder = None # 资源参数
     def __init__(self):
         pass
 
     @abstractmethod
-    def load(self,src_param: BaseParameterSrc, **kwarg)->BaseResultSrc:
+    def load(self,src_param: BaseParameterSrcLoder, **kwarg)->BaseResultSrcLoder:
         pass
