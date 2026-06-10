@@ -1,25 +1,27 @@
-from SrcLoader import BaseSrcLoader
+from Loader import BaseResultLoader
 
 from abc import ABC,abstractmethod
+
+from langchain_core.documents import Document
+from unstructured.documents.elements import Element 
 
 '''
 
 src----->BaseParameterLoader
             |
             V
-            BaseLoader----->BaseResultLoder
+            BaseLoader----->BaseResultLoader + BaseParameterSplitter
                                      |
                                      V
                                      BaseSplitter----->BaseResultSplitter
 
 '''
-# class BaseResultSplitter(ABC):
-#     def __init__(self):
-#         pass
 
-# class BaseSplitter(ABC):
-#     def __init__(self):
-#         pass    
+class BaseParameterSplitter(ABC):
+    '''一个分割器参数基类'''
+    def __init__(self):
+        pass
+
 
 class BaseResultSplitter(ABC):
     def __init__(self):
@@ -64,10 +66,11 @@ class ResultSplitter(BaseResultSplitter):
 
 class BaseSplitter(ABC):
     '''一个分割器基类'''
-    param: BaseParameterSplitter = None #参数
-    def __init__(self):
-        pass
+    param: BaseParameterSplitter = None
+    
+    def __init__(self, param: BaseParameterSplitter):
+        self.param = param
 
     @abstractmethod
-    def load(self,param: BaseParameterSplitter, **kwarg)->BaseResultSplitter:
+    def load(self,param: BaseResultLoader, **kwarg)->BaseResultSplitter:
         pass

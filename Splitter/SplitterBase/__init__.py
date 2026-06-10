@@ -1,1 +1,1 @@
-from .splitter_base import BaseSplitter, BaseParameterSplitter, BaseResultSplitter, ResultSplitter
+from .splitter_base import BaseParameterSplitter, BaseResultSplitter, ResultSplitter, BaseSplitter
