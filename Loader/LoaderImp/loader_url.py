@@ -46,26 +46,26 @@ class LoaderURL(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderURL):
-            src_param:ParameterLoaderURL
-            if src_param.using_loader=="UnstructuredURLLoader":
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderURL):
+            param:ParameterLoaderURL
+            if param.using_loader=="UnstructuredURLLoader":
 
                 from langchain_community.document_loaders import UnstructuredURLLoader
 
-                argdict=src_param.kwargs
-                loader = UnstructuredURLLoader(urls=src_param.web_urls,
+                argdict=param.kwargs
+                loader = UnstructuredURLLoader(urls=param.web_urls,
                                 continue_on_failure=argdict.pop("continue_on_failure",True),
                                 mode=argdict.pop("mode","single"),
                                 show_progress_bar=argdict.pop("show_progress_bar",False),
                                 **argdict)
 
-            elif src_param.using_loader=="WebBaseLoader":
-                src_param:ParameterLoaderURL
+            elif param.using_loader=="WebBaseLoader":
+                param:ParameterLoaderURL
 
                 from langchain_community.document_loaders import WebBaseLoader
 
-                argdict=src_param.kwargs
+                argdict=param.kwargs
                 parse_only=argdict.pop("parse_only",None)
                 bs_kwargs=argdict.pop("bs_kwargs",None)   
 
@@ -75,7 +75,7 @@ class LoaderURL(BaseLoader):
 
                 requests_kwargs=argdict.pop("requests_kwargs",{"headers": {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"}})
                 
-                loader = WebBaseLoader( web_paths=src_param.web_urls,
+                loader = WebBaseLoader( web_paths=param.web_urls,
                                         bs_kwargs=bs_kwargs,
                                         requests_kwargs=requests_kwargs,
                                         **argdict)
@@ -83,4 +83,4 @@ class LoaderURL(BaseLoader):
             return ResultLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterLoaderURL")
+            raise ValueError("param must be a ParameterLoaderURL")

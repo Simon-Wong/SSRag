@@ -46,17 +46,17 @@ class LoaderMHTML(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderMHTML):
-            src_param:ParameterLoaderMHTML
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderMHTML):
+            param:ParameterLoaderMHTML
 
 
-            loader = MHTMLLoader(file_path=src_param.pathfile,
-                                open_encoding=src_param.open_encoding,
-                                bs_kwargs=src_param.bs_kwargs,
-                                get_text_separator=src_param.get_text_separator)
+            loader = MHTMLLoader(file_path=param.pathfile,
+                                open_encoding=param.open_encoding,
+                                bs_kwargs=param.bs_kwargs,
+                                get_text_separator=param.get_text_separator)
 
             return ResultLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterLoderMHTML")
+            raise ValueError("param must be a ParameterLoderMHTML")

@@ -10,9 +10,9 @@ from Loader import ParameterLoaderCSV,LoaderCSV,ResultLoder
 def Test1_LoaderCSV():
     sl=LoaderCSV()
 
-    src_param=ParameterLoaderCSV(pathfile="test/data/blabla.csv")
+    param=ParameterLoaderCSV(pathfile="test/data/blabla.csv")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderCSV():
 def Test2_LoaderCSV_to_documents():
     sl=LoaderCSV()
 
-    src_param=ParameterLoaderCSV(pathfile="test/data/blabla.csv")
+    param=ParameterLoaderCSV(pathfile="test/data/blabla.csv")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

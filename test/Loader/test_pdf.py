@@ -10,9 +10,9 @@ from Loader import ParameterLoaderPDF,LoaderPDF,ResultLoder
 def Test1_LoaderPDF():
     sl=LoaderPDF()
 
-    src_param=ParameterLoaderPDF( pathfile="test/data/blabla.pdf")
+    param=ParameterLoaderPDF( pathfile="test/data/blabla.pdf")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     # if isinstance(res, ResultLoder):
     #     res:ResultLoder
@@ -32,9 +32,9 @@ def Test1_LoaderPDF():
 def Test2_LoaderPDF_to_documents():
     sl=LoaderPDF()
 
-    src_param=ParameterLoaderPDF( pathfile="test/data/blabla2.pdf")
+    param=ParameterLoaderPDF( pathfile="test/data/blabla2.pdf")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

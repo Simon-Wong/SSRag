@@ -10,17 +10,17 @@ from Loader import ParameterLoaderPDFModel,LoaderPDFModel,ResultLoder
 def Test1_LoaderPDFModel():
     sl=LoaderPDFModel()
 
-    src_param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf")
+    param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
         print(res.src_type) 
         print(res.src_data)
 
-    src_param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf",max_tokens=500)
-    res = sl.load(src_param)
+    param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf",max_tokens=500)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -31,9 +31,9 @@ def Test1_LoaderPDFModel():
 def Test2_LoaderPDFModel_to_documents():
     sl=LoaderPDFModel()
 
-    src_param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf")  
+    param=ParameterLoaderPDFModel(pathfile="test/data/blabla2.pdf")  
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

@@ -10,9 +10,9 @@ from Loader import ParameterLoaderMD,LoaderMD,ResultLoder
 def Test1_LoaderMD():
     sl=LoaderMD()
 
-    src_param=ParameterLoaderMD(pathfile="test/data/blabla.md",mode="single")
+    param=ParameterLoaderMD(pathfile="test/data/blabla.md",mode="single")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderMD():
 def Test2_LoaderMD_to_documents():
     sl=LoaderMD()
 
-    src_param=ParameterLoaderMD(pathfile="test/data/blabla.md",parse_pic=True)
+    param=ParameterLoaderMD(pathfile="test/data/blabla.md",parse_pic=True)
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

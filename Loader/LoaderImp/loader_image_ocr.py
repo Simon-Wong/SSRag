@@ -41,17 +41,17 @@ class LoaderImageOCR(BaseLoader):
                         "ko": "korean"
                         }
 
-    def _ocr_with_model(self,src_param: ParameterLoaderImageOCR, model: RapidOCR = None) -> str:
+    def _ocr_with_model(self,param: ParameterLoaderImageOCR, model: RapidOCR = None) -> str:
         """使用指定模型执行OCR识别"""
-        src_param:ParameterLoaderImageOCR
+        param:ParameterLoaderImageOCR
 
         if model is None:
             model = self.model
-            if model is None or src_param.need_new_model==True:
-                model = RapidOCR(src_param.config_path,**src_param.kwargs)
+            if model is None or param.need_new_model==True:
+                model = RapidOCR(param.config_path,**param.kwargs)
                 self.model=model
 
-        result , _ = self.model(src_param.pathfile.as_posix())
+        result , _ = self.model(param.pathfile.as_posix())
 
         return "\n".join([item[1] for item in result]) if result else ""
 
@@ -65,33 +65,33 @@ class LoaderImageOCR(BaseLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
         """自动语言适配的完整OCR流程"""
 
-        if not isinstance(src_param, ParameterLoaderImageOCR):
-            raise ValueError("src_param must be a ParameterLoaderImageOCR")
+        if not isinstance(param, ParameterLoaderImageOCR):
+            raise ValueError("param must be a ParameterLoaderImageOCR")
 
-        src_param:ParameterLoaderImageOCR
+        param:ParameterLoaderImageOCR
 
         # Step 1: 先用默认模型（中英文混合）获取初步文本
-        res_text = self._ocr_with_model(src_param)
+        res_text = self._ocr_with_model(param)
 
         # Step 2: 检测文本语言
         detected_lang = self._detect_language(res_text)
         lang=self.lang_map.get(detected_lang, "unknown")
         # Step 3【可选】: 使用最优参数重建模型、重新识别
-        if lang != "unknown" and  src_param.reocr ==True:        
-            self.model=RapidOCR(src_param.config_path,lang=lang,**src_param.kwargs)
-            res_text = self._ocr_with_model(src_param,self.model)
+        if lang != "unknown" and  param.reocr ==True:        
+            self.model=RapidOCR(param.config_path,lang=lang,**param.kwargs)
+            res_text = self._ocr_with_model(param,self.model)
             
         # Step 4: 返回Document格式结果
         metadata = {
-            "source": src_param.pathfile.as_posix(),       
+            "source": param.pathfile.as_posix(),       
             "language": lang,
             "langdetect": detected_lang,
             "ocr_engine": "RapidOCR",
             "type":"image",
-            "image_type":src_param.pathfile.suffix[1:] if src_param.pathfile.suffix else "unknown"
+            "image_type":param.pathfile.suffix[1:] if param.pathfile.suffix else "unknown"
         }
 
         return ResultLoder([Document(page_content=res_text, metadata=metadata)])

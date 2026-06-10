@@ -10,17 +10,17 @@ from Loader import ParameterLoaderImageOCRModel,LoaderImageOCRModel,ResultLoder
 def Test1_LoaderImageOCRModel():
     sl=LoaderImageOCRModel()
 
-    src_param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.PNG")
+    param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.PNG")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
         print(res.src_type) 
         print(res.src_data)
 
-    src_param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.PNG",max_tokens=300)
-    res = sl.load(src_param)
+    param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.PNG",max_tokens=300)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -31,9 +31,9 @@ def Test1_LoaderImageOCRModel():
 def Test2_LoaderImageOCRModel_to_documents():
     sl=LoaderImageOCRModel()
 
-    src_param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.JPG")  
+    param=ParameterLoaderImageOCRModel(pathfile="test/data/blabla.JPG")  
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

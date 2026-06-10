@@ -50,29 +50,29 @@ class LoaderImageOCRModel(BaseLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
         """本地多模态大模型提取图片所有文字（通用OCR）"""
 
-        if not isinstance(src_param, ParameterLoaderImageOCRModel):
-            raise ValueError("src_param must be a ParameterLoaderImageOCRModel")
+        if not isinstance(param, ParameterLoaderImageOCRModel):
+            raise ValueError("param must be a ParameterLoaderImageOCRModel")
 
-        src_param:ParameterLoaderImageOCRModel
+        param:ParameterLoaderImageOCRModel
 
         # 读取图片转base64
-        with open(src_param.pathfile.as_posix(), "rb") as f:
+        with open(param.pathfile.as_posix(), "rb") as f:
             base64_image = base64.b64encode(f.read()).decode("utf-8")
 
-        suffix = src_param.pathfile.suffix.lower().strip('.')
+        suffix = param.pathfile.suffix.lower().strip('.')
         if suffix == 'jpg':
             mime_type = f"image/jpeg"
         else:
             mime_type = f"image/{suffix}"
 
         i=0
-        token_len=src_param.max_tokens 
-        while i<src_param.max_retry:
+        token_len=param.max_tokens 
+        while i<param.max_retry:
             # 调用本地大模型
-            if src_param.use_max_tokens is True:
+            if param.use_max_tokens is True:
                 response = self.model.chat.completions.create(model="qwen3.5:9b",
                     messages=[
                         {
@@ -83,7 +83,7 @@ class LoaderImageOCRModel(BaseLoader):
                             ]
                         }
                     ],
-                    max_tokens=src_param.max_tokens
+                    max_tokens=param.max_tokens
                 )
             else:
                 response = self.model.chat.completions.create(model="qwen3.5:9b",
@@ -114,12 +114,12 @@ class LoaderImageOCRModel(BaseLoader):
 
         # Step 4: 返回Document格式结果
         metadata = {
-            "source": src_param.pathfile.as_posix(),       
+            "source": param.pathfile.as_posix(),       
             "language": lang,
             "langdetect": detected_lang,
             "ocr_engine": "qwen3.5:9b",
             "type":"image",
-            "image_type":src_param.pathfile.suffix[1:] if src_param.pathfile.suffix else "unknown"
+            "image_type":param.pathfile.suffix[1:] if param.pathfile.suffix else "unknown"
         }
 
         return ResultLoder([Document(page_content=res_text, metadata=metadata)])

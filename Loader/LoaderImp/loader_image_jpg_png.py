@@ -26,15 +26,15 @@ class LoaderImageJpgPng(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderImageJpgPng):
-            src_param:ParameterLoaderImageJpgPng
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderImageJpgPng):
+            param:ParameterLoaderImageJpgPng
             
-            loader = UnstructuredImageLoader(src_param.pathfile,
-                                                mode=src_param.mode, 
-                                                languages=src_param.languages,
-                                                **src_param.unstructured_kwargs)    
+            loader = UnstructuredImageLoader(param.pathfile,
+                                                mode=param.mode, 
+                                                languages=param.languages,
+                                                **param.unstructured_kwargs)    
             return ResultLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterLoaderImageJpgPng")
+            raise ValueError("param must be a ParameterLoaderImageJpgPng")

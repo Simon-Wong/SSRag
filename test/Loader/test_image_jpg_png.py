@@ -10,9 +10,9 @@ from Loader import ParameterLoaderImageJpgPng,LoaderImageJpgPng,ResultLoder
 def Test1_LoaderImageJpgPng():
     sl=LoaderImageJpgPng()
 
-    src_param=ParameterLoaderImageJpgPng(pathfile="test/data/blabla.PNG")
+    param=ParameterLoaderImageJpgPng(pathfile="test/data/blabla.PNG")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderImageJpgPng():
 def Test2_LoaderImageJpgPng_to_documents():
     sl=LoaderImageJpgPng()
 
-    src_param=ParameterLoaderImageJpgPng(pathfile="test/data/blabla.JPG")  
+    param=ParameterLoaderImageJpgPng(pathfile="test/data/blabla.JPG")  
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

@@ -10,9 +10,9 @@ from Loader import ParameterLoaderDocDocx,LoaderDocDocx,ResultLoder
 def Test1_LoaderDocDocx():
     sl=LoaderDocDocx()
 
-    src_param=ParameterLoaderDocDocx(pathfile="test/data/blabla.doc")
+    param=ParameterLoaderDocDocx(pathfile="test/data/blabla.doc")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderDocDocx():
 def Test2_LoaderDocDocx_to_documents():
     sl=LoaderDocDocx()
 
-    src_param=ParameterLoaderDocDocx(pathfile="test/data/blabla.docx")
+    param=ParameterLoaderDocDocx(pathfile="test/data/blabla.docx")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

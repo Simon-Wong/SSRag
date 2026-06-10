@@ -42,15 +42,15 @@ class LoaderJSON(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderJSON):
-            src_param:ParameterLoaderJSON
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderJSON):
+            param:ParameterLoaderJSON
             
-            if src_param.using_loader=="JSONLoader":
+            if param.using_loader=="JSONLoader":
 
                 from langchain_community.document_loaders import JSONLoader
-                argdict=src_param.kwargs
-                loader = JSONLoader(src_param.pathfile,
+                argdict=param.kwargs
+                loader = JSONLoader(param.pathfile,
                                 jq_schema=argdict.get("jq_schema","tostring"),
                                 content_key=argdict.get("content_key"), 
                                 is_content_key_jq_parsable=argdict.get("is_content_key_jq_parsable",False),
@@ -58,10 +58,10 @@ class LoaderJSON(BaseLoader):
                                 text_content=argdict.get("text_content",True),
                                 json_lines=argdict.get("json_lines",False))
 
-            elif src_param.using_loader=="fake_no_impl":
-                raise ValueError(f"the value of using_loader {src_param.using_loader}  is not implemented")
+            elif param.using_loader=="fake_no_impl":
+                raise ValueError(f"the value of using_loader {param.using_loader}  is not implemented")
 
             return ResultLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterLoaderJSON")
+            raise ValueError("param must be a ParameterLoaderJSON")

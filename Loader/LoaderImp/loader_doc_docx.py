@@ -27,14 +27,14 @@ class LoaderDocDocx(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderDocDocx):
-            src_param:ParameterLoaderDocDocx
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderDocDocx):
+            param:ParameterLoaderDocDocx
             
-            tl = UnstructuredLoader(src_param.pathfile,
-                                    partition_via_api=src_param.partition_via_api,
-                                    **src_param.kwarg)
+            tl = UnstructuredLoader(param.pathfile,
+                                    partition_via_api=param.partition_via_api,
+                                    **param.kwarg)
 
             return ResultLoder(tl.load())
         else:
-            raise ValueError("src_param must be a ParameterLoaderDocDocx")
+            raise ValueError("param must be a ParameterLoaderDocDocx")

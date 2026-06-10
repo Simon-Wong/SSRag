@@ -58,10 +58,10 @@ class ResultLoder(BaseResultLoder):
 
 class BaseLoader(ABC):
     '''一个加载器基类'''
-    src_param: BaseParameterLoader = None # 资源参数
+    param: BaseParameterLoader = None # 资源参数
     def __init__(self):
         pass
 
     @abstractmethod
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
         pass

@@ -34,21 +34,21 @@ class LoaderPDF(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderPDF):
-            src_param:ParameterLoaderPDF
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderPDF):
+            param:ParameterLoaderPDF
             
-            if src_param.using_loader=="UnstructuredLoader":
+            if param.using_loader=="UnstructuredLoader":
 
                 from langchain_unstructured import UnstructuredLoader
-                argdict=src_param.kwargs
-                loader = UnstructuredLoader(src_param.pathfile,
-                                            strategy=src_param.strategy)
+                argdict=param.kwargs
+                loader = UnstructuredLoader(param.pathfile,
+                                            strategy=param.strategy)
 
-            elif src_param.using_loader=="fake_no_impl":
-                raise ValueError(f"the value of using_loader {src_param.using_loader}  is not implemented")
+            elif param.using_loader=="fake_no_impl":
+                raise ValueError(f"the value of using_loader {param.using_loader}  is not implemented")
 
             return ResultLoder(loader.load())
             
         else:
-            raise ValueError("src_param must be a ParameterLoaderPDF")
+            raise ValueError("param must be a ParameterLoaderPDF")

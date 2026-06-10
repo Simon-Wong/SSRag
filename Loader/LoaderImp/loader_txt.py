@@ -27,15 +27,15 @@ class LoaderTxt(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderTxt):
-            src_param:ParameterLoaderTxt
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderTxt):
+            param:ParameterLoaderTxt
             
             # 不同的子类这里使用不同的方式加载资源数据
-            tl = TextLoader(src_param.pathfile, 
-                            encoding=src_param.encoding, 
-                            autodetect_encoding=src_param.autodetect_encoding)
+            tl = TextLoader(param.pathfile, 
+                            encoding=param.encoding, 
+                            autodetect_encoding=param.autodetect_encoding)
 
             return ResultLoder(tl.load())
         else:
-            raise ValueError("src_param must be a ParameterLoaderTxt")
+            raise ValueError("param must be a ParameterLoaderTxt")

@@ -10,10 +10,10 @@ from Loader import ParameterLoaderURL,LoaderURL,ResultLoder
 def Test1_LoaderURL():
     sl=LoaderURL()
 
-    src_param=ParameterLoaderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
+    param=ParameterLoaderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                 using_loader="UnstructuredURLLoader")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -30,11 +30,11 @@ def Test2_LoaderURL_to_documents():
         os.environ["USER_AGENT"] = "SSRag/1.0.0"
         sl = LoaderURL()
 
-        src_param = ParameterLoaderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
+        param = ParameterLoaderURL(  web_urls=["https://www.cnblogs.com/wlsandwho/p/18673629","https://www.cnblogs.com/wlsandwho/p/18948512"],
                                     using_loader="WebBaseLoader",
                                     parse_only="cnblogs_post_body")
         
-        res = sl.load(src_param)
+        res = sl.load(param)
 
         res2 = ResultLoder(res.to_documents())
         print(res2.src_type)

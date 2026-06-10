@@ -31,20 +31,20 @@ class LoaderPPT(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderPPT):
-            src_param:ParameterLoaderPPT
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderPPT):
+            param:ParameterLoaderPPT
             all_documents=[]        
-            ppt_elements = partition_ppt(src_param.pathfile, 
-                                  file=src_param.file,
-                                  metadata_filename=src_param.metadata_filename,
-                                  metadata_last_modified=src_param.metadata_last_modified,
-                                  **src_param.kkwarg)
+            ppt_elements = partition_ppt(param.pathfile, 
+                                  file=param.file,
+                                  metadata_filename=param.metadata_filename,
+                                  metadata_last_modified=param.metadata_last_modified,
+                                  **param.kkwarg)
 
             for id,element in enumerate(ppt_elements):
                 
                 metadata = {
-                        "source": src_param.pathfile.as_posix(),
+                        "source": param.pathfile.as_posix(),
                         "id": id,
                         } 
 
@@ -52,4 +52,4 @@ class LoaderPPT(BaseLoader):
 
             return ResultLoder(all_documents) 
         else:
-            raise ValueError("src_param must be a ParameterLoaderPPT")
+            raise ValueError("param must be a ParameterLoaderPPT")

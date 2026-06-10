@@ -10,9 +10,9 @@ from Loader import ParameterLoaderMHTML,LoaderMHTML,ResultLoder
 def Test1_LoaderMHTML():
     sl=LoaderMHTML()
 
-    src_param=ParameterLoaderMHTML(pathfile="test/data/blabla.mhtml",parse_only="cnblogs_post_body")
+    param=ParameterLoaderMHTML(pathfile="test/data/blabla.mhtml",parse_only="cnblogs_post_body")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,10 +22,10 @@ def Test1_LoaderMHTML():
 def Test2_LoaderMHTML_to_documents():
     sl = LoaderMHTML()
 
-    src_param = ParameterLoaderMHTML(  pathfile="test/data/blabla.mhtml",
+    param = ParameterLoaderMHTML(  pathfile="test/data/blabla.mhtml",
                                 parse_only="cnblogs_post_body")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2 = ResultLoder(res.to_documents())
     print(res2.src_type)

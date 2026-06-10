@@ -32,19 +32,19 @@ class LoaderImageContent(BaseLoader):
     def __init__(self):
         self.model:OpenAI = OpenAI(base_url="http://192.168.0.107:11434/v1",api_key="fake_key")
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
         """本地多模态大模型提取图片内容"""
 
-        if not isinstance(src_param, ParameterLoaderImageContent):
-            raise ValueError("src_param must be a ParameterLoaderImageContent")
+        if not isinstance(param, ParameterLoaderImageContent):
+            raise ValueError("param must be a ParameterLoaderImageContent")
 
-        src_param:ParameterLoaderImageContent
+        param:ParameterLoaderImageContent
 
         # 读取图片转base64
-        with open(src_param.pathfile.as_posix(), "rb") as f:
+        with open(param.pathfile.as_posix(), "rb") as f:
             base64_image = base64.b64encode(f.read()).decode("utf-8")
 
-        suffix = src_param.pathfile.suffix.lower().strip('.')
+        suffix = param.pathfile.suffix.lower().strip('.')
         if suffix == 'jpg':
             mime_type = f"image/jpeg"
         else:
@@ -52,9 +52,9 @@ class LoaderImageContent(BaseLoader):
 
         # 调用本地大模型
         i=0
-        token_len=src_param.max_tokens 
-        while i<src_param.max_retry:
-            if src_param.use_max_tokens is True:
+        token_len=param.max_tokens 
+        while i<param.max_retry:
+            if param.use_max_tokens is True:
                 response = self.model.chat.completions.create(model="qwen3.5:9b",
                     messages=[
                         {
@@ -91,7 +91,7 @@ class LoaderImageContent(BaseLoader):
                 token_len=int(token_len*1.5)
         
         metadata = {
-            "source": src_param.pathfile.as_posix(),       
+            "source": param.pathfile.as_posix(),       
             "ocr_engine": "qwen3.5:9b",
             "type":"image",
             "image_type":suffix if suffix else "unknown"

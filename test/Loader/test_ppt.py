@@ -10,9 +10,9 @@ from Loader import ParameterLoaderPPT,LoaderPPT,ResultLoder
 def Test1_LoaderPPT():
     sl=LoaderPPT()
 
-    src_param=ParameterLoaderPPT(pathfile="test/data/blabla.pptx")
+    param=ParameterLoaderPPT(pathfile="test/data/blabla.pptx")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderPPT():
 def Test2_LoaderPPT_to_documents():
     sl=LoaderPPT()
 
-    src_param=ParameterLoaderPPT(pathfile="test/data/blabla2.ppt")
+    param=ParameterLoaderPPT(pathfile="test/data/blabla2.ppt")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 
@@ -33,9 +33,9 @@ def Test2_LoaderPPT_to_documents():
 def Test3_LoaderPPT():
     sl=LoaderPPT()
 
-    src_param=ParameterLoaderPPT(pathfile="test/data/blabla3.pptx")
+    param=ParameterLoaderPPT(pathfile="test/data/blabla3.pptx")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder

@@ -39,31 +39,31 @@ class LoaderHTML(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderHTML):
-            src_param:ParameterLoaderHTML
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderHTML):
+            param:ParameterLoaderHTML
 
-            with open(src_param.pathfile.as_posix(), "r", encoding=src_param.open_encoding) as file:
+            with open(param.pathfile.as_posix(), "r", encoding=param.open_encoding) as file:
                 soup = BeautifulSoup(file, "html.parser")
 
-            if src_param.parse_only is not None:
-                if src_param.parse_type=="id":
-                    content_div=soup.find("div",id=src_param.parse_only)
-                elif src_param.parse_type=="class":
-                    content_div=soup.find("div",class_=src_param.parse_only)
+            if param.parse_only is not None:
+                if param.parse_type=="id":
+                    content_div=soup.find("div",id=param.parse_only)
+                elif param.parse_type=="class":
+                    content_div=soup.find("div",class_=param.parse_only)
 
                 if content_div:
                     content=content_div.get_text()
                 else:
                     content="未找到目标内容"
-                    print(f"请注意检查HTML中{src_param.parse_type}名称{src_param.parse_only}是否正确")
+                    print(f"请注意检查HTML中{param.parse_type}名称{param.parse_only}是否正确")
 
             else:
                 content=soup.get_text()
 
 
-            metadata = {"source": src_param.pathfile.as_posix(),"type":"html"}
+            metadata = {"source": param.pathfile.as_posix(),"type":"html"}
             return ResultLoder([Document(page_content=content, metadata=metadata)])   
 
         else:
-            raise ValueError("src_param must be a ParameterLoaderHTML")
+            raise ValueError("param must be a ParameterLoaderHTML")

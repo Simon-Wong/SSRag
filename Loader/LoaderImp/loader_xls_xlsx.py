@@ -176,24 +176,24 @@ class LoaderXlsXlsx(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderXlsXlsx):
-            src_param:ParameterLoaderXlsXlsx
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderXlsXlsx):
+            param:ParameterLoaderXlsXlsx
             all_documents=[]
 
             # 不同的子类这里使用不同的方式加载资源数据
             try:
-                csv_files,sheet_names = split_excel_to_csvs(src_param.pathfile, src_param.encoding, src_param.temp_dir)
+                csv_files,sheet_names = split_excel_to_csvs(param.pathfile, param.encoding, param.temp_dir)
 
                 for csv_pathfile,sheet_name in zip(csv_files,sheet_names):
                     loader = CSVLoader_XlsXlsx(csv_pathfile, 
-                                source_custom=f"{src_param.pathfile.as_posix()}",
+                                source_custom=f"{param.pathfile.as_posix()}",
                                 sheet_name=sheet_name,
-                                metadata_columns=src_param.metadata_columns,
-                                csv_args=src_param.csv_args,
-                                encoding=src_param.encoding,
-                                autodetect_encoding=src_param.autodetect_encoding, 
-                                content_columns=src_param.content_columns)
+                                metadata_columns=param.metadata_columns,
+                                csv_args=param.csv_args,
+                                encoding=param.encoding,
+                                autodetect_encoding=param.autodetect_encoding, 
+                                content_columns=param.content_columns)
                     documents = loader.load()
                     all_documents.extend(documents)
             
@@ -208,4 +208,4 @@ class LoaderXlsXlsx(BaseLoader):
             return ResultLoder(all_documents)
 
         else:
-            raise ValueError("src_param must be a ParameterLoaderXlsXlsx")
+            raise ValueError("param must be a ParameterLoaderXlsXlsx")

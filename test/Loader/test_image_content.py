@@ -10,17 +10,17 @@ from Loader import ParameterLoaderImageContent,LoaderImageContent,ResultLoder
 def Test1_LoaderImageContent():
     sl=LoaderImageContent()
 
-    src_param=ParameterLoaderImageContent(pathfile="test/data/blabla.PNG")
+    param=ParameterLoaderImageContent(pathfile="test/data/blabla.PNG")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
         print(res.src_type) 
         print(res.src_data)
 
-    src_param=ParameterLoaderImageContent(pathfile="test/data/blabla.PNG",max_tokens=500)
-    res = sl.load(src_param)
+    param=ParameterLoaderImageContent(pathfile="test/data/blabla.PNG",max_tokens=500)
+    res = sl.load(param)
     
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -31,9 +31,9 @@ def Test1_LoaderImageContent():
 def Test2_LoaderImageContent_to_documents():
     sl=LoaderImageContent()
 
-    src_param=ParameterLoaderImageContent(pathfile="test/data/blabla.JPG")  
+    param=ParameterLoaderImageContent(pathfile="test/data/blabla.JPG")  
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

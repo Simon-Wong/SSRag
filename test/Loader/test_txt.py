@@ -10,9 +10,9 @@ from Loader import ParameterLoaderTxt,LoaderTxt,ResultLoder
 def Test1_LoaderTxt():
     sl=LoaderTxt()
 
-    src_param=ParameterLoaderTxt(pathfile="test/data/blabla.txt")
+    param=ParameterLoaderTxt(pathfile="test/data/blabla.txt")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
 
     if isinstance(res, ResultLoder):
         res:ResultLoder
@@ -22,9 +22,9 @@ def Test1_LoaderTxt():
 def Test2_LoaderTxt_to_documents():
     sl=LoaderTxt()
 
-    src_param=ParameterLoaderTxt(pathfile="test/data/blabla.txt")
+    param=ParameterLoaderTxt(pathfile="test/data/blabla.txt")
     
-    res = sl.load(src_param)
+    res = sl.load(param)
     
     res2=ResultLoder(res.to_documents())
     print(res2.src_type) 

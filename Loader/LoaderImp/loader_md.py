@@ -40,21 +40,21 @@ class LoaderMD(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderMD):
-            src_param:ParameterLoaderMD
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderMD):
+            param:ParameterLoaderMD
             
-            loader = UnstructuredMarkdownLoader(src_param.pathfile,
-                                                mode=src_param.mode, 
-                                                **src_param.unstructured_kwargs)
+            loader = UnstructuredMarkdownLoader(param.pathfile,
+                                                mode=param.mode, 
+                                                **param.unstructured_kwargs)
             all_documents=loader.load()
     
-            if src_param.parse_pic:
+            if param.parse_pic:
                 for doc in all_documents:
                     if "image_url" in doc.metadata:
                         pathimg=Path(doc.metadata["image_url"])
                         if  not pathimg.is_absolute():
-                            tmp=src_param.pathfile.parent/pathimg
+                            tmp=param.pathfile.parent/pathimg
                             pathimg=tmp.resolve().as_posix()
                         else:
                             pathimg=pathimg.as_posix()
@@ -69,4 +69,4 @@ class LoaderMD(BaseLoader):
             return ResultLoder(all_documents)
             
         else:
-            raise ValueError("src_param must be a ParameterLoaderMD")
+            raise ValueError("param must be a ParameterLoaderMD")

@@ -39,18 +39,18 @@ class LoaderCSV(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
-        if isinstance(src_param, ParameterLoaderCSV):
-            src_param:ParameterLoaderCSV
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+        if isinstance(param, ParameterLoaderCSV):
+            param:ParameterLoaderCSV
             
-            loader = CSVLoader(src_param.pathfile, 
-                                source_column=src_param.source_column,
-                                metadata_columns=src_param.metadata_columns,
-                                csv_args=src_param.csv_args,
-                                encoding=src_param.encoding,
-                                autodetect_encoding=src_param.autodetect_encoding, 
-                                content_columns=src_param.content_columns)
+            loader = CSVLoader(param.pathfile, 
+                                source_column=param.source_column,
+                                metadata_columns=param.metadata_columns,
+                                csv_args=param.csv_args,
+                                encoding=param.encoding,
+                                autodetect_encoding=param.autodetect_encoding, 
+                                content_columns=param.content_columns)
     
             return ResultLoder(loader.load())
         else:
-            raise ValueError("src_param must be a ParameterLoaderCSV")
+            raise ValueError("param must be a ParameterLoaderCSV")

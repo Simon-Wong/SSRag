@@ -35,16 +35,16 @@ class LoaderPDFModel(BaseLoader):
     def __init__(self):
         self.model:OpenAI = OpenAI(base_url="http://192.168.0.107:11434/v1",api_key="fake_key")
 
-    def convert_pdf_to_pic(self,src_param: ParameterLoaderPDFModel)->list[str]:
+    def convert_pdf_to_pic(self,param: ParameterLoaderPDFModel)->list[str]:
         """
         将PDF转换为图片格式，返回图片路径列表
         """
-        temp_dir=src_param.temp_dir
+        temp_dir=param.temp_dir
         if temp_dir is None:
-            temp_dir = os.path.dirname(src_param.pathfile) or '.'
+            temp_dir = os.path.dirname(param.pathfile) or '.'
         os.makedirs(temp_dir, exist_ok=True)
 
-        images = convert_from_path(src_param.pathfile.as_posix())
+        images = convert_from_path(param.pathfile.as_posix())
         image_paths = []
         for i, image in enumerate(images):
             image_path = os.path.join(temp_dir, f'page_{i+1}.jpg')
@@ -53,19 +53,19 @@ class LoaderPDFModel(BaseLoader):
 
         return image_paths
 
-    def load(self,src_param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
         """本地多模态大模型提取PDF内容"""
 
-        if not isinstance(src_param, ParameterLoaderPDFModel):
-            raise ValueError("src_param must be a ParameterLoaderPDFModel")
+        if not isinstance(param, ParameterLoaderPDFModel):
+            raise ValueError("param must be a ParameterLoaderPDFModel")
 
-        src_param:ParameterLoaderPDFModel
+        param:ParameterLoaderPDFModel
         image_paths:list[str]=[]
         all_documents=[]
 
         try:
             # 转换PDF为图片
-            image_paths = self.convert_pdf_to_pic(src_param)  
+            image_paths = self.convert_pdf_to_pic(param)  
 
             # 读取图片转base64
             for pageid,image_path in enumerate(image_paths):
@@ -75,9 +75,9 @@ class LoaderPDFModel(BaseLoader):
                 res_text=""
                 # 调用本地大模型
                 ntry=0
-                token_len=src_param.max_tokens
-                while ntry<src_param.max_retry:
-                    if src_param.use_max_tokens is False:
+                token_len=param.max_tokens
+                while ntry<param.max_retry:
+                    if param.use_max_tokens is False:
                         response = self.model.chat.completions.create(model="qwen3.5:9b",
                                         messages=[
                                             {
@@ -112,9 +112,9 @@ class LoaderPDFModel(BaseLoader):
                         res_text = response.choices[0].message.content.strip()
                         if res_text!="":
                             break
-                    print(f"\t{ntry}/{src_param.max_retry}")    
+                    print(f"\t{ntry}/{param.max_retry}")    
                 metadata = {
-                    "source": src_param.pathfile.as_posix(),       
+                    "source": param.pathfile.as_posix(),       
                     "ocr_engine": "qwen3.5:9b",
                     "page": pageid+1,
                     }       
