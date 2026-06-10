@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from rapidocr_onnxruntime import RapidOCR
 from langdetect import detect, LangDetectException
@@ -65,7 +65,7 @@ class LoaderImageOCR(BaseLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         """自动语言适配的完整OCR流程"""
 
         if not isinstance(param, ParameterLoaderImageOCR):
@@ -94,5 +94,5 @@ class LoaderImageOCR(BaseLoader):
             "image_type":param.pathfile.suffix[1:] if param.pathfile.suffix else "unknown"
         }
 
-        return ResultLoder([Document(page_content=res_text, metadata=metadata)])
+        return ResultLoader([Document(page_content=res_text, metadata=metadata)])
             

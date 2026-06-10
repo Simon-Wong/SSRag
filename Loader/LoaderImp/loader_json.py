@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Callable, Dict,Literal,Any
@@ -42,7 +42,7 @@ class LoaderJSON(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderJSON):
             param:ParameterLoaderJSON
             
@@ -61,7 +61,7 @@ class LoaderJSON(BaseLoader):
             elif param.using_loader=="fake_no_impl":
                 raise ValueError(f"the value of using_loader {param.using_loader}  is not implemented")
 
-            return ResultLoder(loader.load())
+            return ResultLoader(loader.load())
             
         else:
             raise ValueError("param must be a ParameterLoaderJSON")

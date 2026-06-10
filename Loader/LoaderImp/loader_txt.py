@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 
@@ -27,7 +27,7 @@ class LoaderTxt(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderTxt):
             param:ParameterLoaderTxt
             
@@ -36,6 +36,6 @@ class LoaderTxt(BaseLoader):
                             encoding=param.encoding, 
                             autodetect_encoding=param.autodetect_encoding)
 
-            return ResultLoder(tl.load())
+            return ResultLoader(tl.load())
         else:
             raise ValueError("param must be a ParameterLoaderTxt")

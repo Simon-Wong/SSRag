@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Any
@@ -26,7 +26,7 @@ class LoaderImageJpgPng(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderImageJpgPng):
             param:ParameterLoaderImageJpgPng
             
@@ -34,7 +34,7 @@ class LoaderImageJpgPng(BaseLoader):
                                                 mode=param.mode, 
                                                 languages=param.languages,
                                                 **param.unstructured_kwargs)    
-            return ResultLoder(loader.load())
+            return ResultLoader(loader.load())
             
         else:
             raise ValueError("param must be a ParameterLoaderImageJpgPng")

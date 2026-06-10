@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 
@@ -27,7 +27,7 @@ class LoaderDocDocx(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderDocDocx):
             param:ParameterLoaderDocDocx
             
@@ -35,6 +35,6 @@ class LoaderDocDocx(BaseLoader):
                                     partition_via_api=param.partition_via_api,
                                     **param.kwarg)
 
-            return ResultLoder(tl.load())
+            return ResultLoader(tl.load())
         else:
             raise ValueError("param must be a ParameterLoaderDocDocx")

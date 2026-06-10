@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 import base64
 import os
@@ -32,7 +32,7 @@ class LoaderImageContent(BaseLoader):
     def __init__(self):
         self.model:OpenAI = OpenAI(base_url="http://192.168.0.107:11434/v1",api_key="fake_key")
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         """本地多模态大模型提取图片内容"""
 
         if not isinstance(param, ParameterLoaderImageContent):
@@ -97,5 +97,5 @@ class LoaderImageContent(BaseLoader):
             "image_type":suffix if suffix else "unknown"
         }
 
-        return ResultLoder([Document(page_content=res_text, metadata=metadata)])
+        return ResultLoader([Document(page_content=res_text, metadata=metadata)])
             

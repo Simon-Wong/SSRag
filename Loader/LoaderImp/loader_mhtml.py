@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Dict,Any
@@ -46,7 +46,7 @@ class LoaderMHTML(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderMHTML):
             param:ParameterLoaderMHTML
 
@@ -56,7 +56,7 @@ class LoaderMHTML(BaseLoader):
                                 bs_kwargs=param.bs_kwargs,
                                 get_text_separator=param.get_text_separator)
 
-            return ResultLoder(loader.load())
+            return ResultLoader(loader.load())
             
         else:
-            raise ValueError("param must be a ParameterLoderMHTML")
+            raise ValueError("param must be a ParameterLoaderMHTML")

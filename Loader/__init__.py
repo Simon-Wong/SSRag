@@ -1,6 +1,6 @@
 #这个文件可以是空的
-from .LoaderBase import BaseParameterLoader,BaseLoader,BaseResultLoder
-from .LoaderBase import ResultLoder
+from .LoaderBase import BaseParameterLoader,BaseLoader,BaseResultLoader
+from .LoaderBase import ResultLoader
 
 from .LoaderImp import ParameterLoaderTxt,LoaderTxt
 from .LoaderImp import ParameterLoaderCSV,LoaderCSV

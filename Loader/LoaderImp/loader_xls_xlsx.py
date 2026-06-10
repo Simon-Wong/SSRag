@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Dict,Sequence
@@ -176,7 +176,7 @@ class LoaderXlsXlsx(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderXlsXlsx):
             param:ParameterLoaderXlsXlsx
             all_documents=[]
@@ -205,7 +205,7 @@ class LoaderXlsXlsx(BaseLoader):
                 for csv_path in csv_files:
                     os.remove(csv_path)
             
-            return ResultLoder(all_documents)
+            return ResultLoader(all_documents)
 
         else:
             raise ValueError("param must be a ParameterLoaderXlsXlsx")

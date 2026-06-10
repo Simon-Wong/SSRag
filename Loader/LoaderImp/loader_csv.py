@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Dict,Sequence
@@ -39,7 +39,7 @@ class LoaderCSV(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderCSV):
             param:ParameterLoaderCSV
             
@@ -51,6 +51,6 @@ class LoaderCSV(BaseLoader):
                                 autodetect_encoding=param.autodetect_encoding, 
                                 content_columns=param.content_columns)
     
-            return ResultLoder(loader.load())
+            return ResultLoader(loader.load())
         else:
             raise ValueError("param must be a ParameterLoaderCSV")

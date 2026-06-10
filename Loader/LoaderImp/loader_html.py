@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Dict,Any
@@ -39,7 +39,7 @@ class LoaderHTML(BaseLoader):
     def __init__(self):
         super().__init__()
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderHTML):
             param:ParameterLoaderHTML
 
@@ -63,7 +63,7 @@ class LoaderHTML(BaseLoader):
 
 
             metadata = {"source": param.pathfile.as_posix(),"type":"html"}
-            return ResultLoder([Document(page_content=content, metadata=metadata)])   
+            return ResultLoader([Document(page_content=content, metadata=metadata)])   
 
         else:
             raise ValueError("param must be a ParameterLoaderHTML")

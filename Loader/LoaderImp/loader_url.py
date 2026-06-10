@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import Callable, Dict,Literal,Any
@@ -46,7 +46,7 @@ class LoaderURL(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderURL):
             param:ParameterLoaderURL
             if param.using_loader=="UnstructuredURLLoader":
@@ -80,7 +80,7 @@ class LoaderURL(BaseLoader):
                                         requests_kwargs=requests_kwargs,
                                         **argdict)
             
-            return ResultLoder(loader.load())
+            return ResultLoader(loader.load())
             
         else:
             raise ValueError("param must be a ParameterLoaderURL")

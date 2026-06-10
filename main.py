@@ -1,6 +1,6 @@
-from SrcLoader import ParameterSrcLoderTxt,SrcLoaderTxt
+from Loader import ParameterLoaderTxt,LoaderTxt
 
 if __name__ =='__main__':
-    param=ParameterSrcLoderTxt()
-    sl=SrcLoaderTxt()
+    param=ParameterLoaderTxt(pathfile="test/data/blabla.txt")
+    sl=LoaderTxt()
     sl.load(param)

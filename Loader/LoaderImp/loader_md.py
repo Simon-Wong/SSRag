@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 from .loader_image_content import ParameterLoaderImageContent,LoaderImageContent
 
 
@@ -40,7 +40,7 @@ class LoaderMD(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderMD):
             param:ParameterLoaderMD
             
@@ -61,12 +61,12 @@ class LoaderMD(BaseLoader):
                         src_param2=ParameterLoaderImageContent(pathfile=pathimg)  
                         sl=LoaderImageContent()
                         res = sl.load(src_param2)    
-                        if isinstance(res, ResultLoder):
-                            res:ResultLoder
+                        if isinstance(res, ResultLoader):
+                            res:ResultLoader
                             print(res.src_data)
                             doc.metadata["image_content"]=res.src_data[0].page_content
 
-            return ResultLoder(all_documents)
+            return ResultLoader(all_documents)
             
         else:
             raise ValueError("param must be a ParameterLoaderMD")

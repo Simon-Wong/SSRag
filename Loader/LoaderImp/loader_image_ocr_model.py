@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 import base64
 import os
@@ -50,7 +50,7 @@ class LoaderImageOCRModel(BaseLoader):
         except LangDetectException:
             return "unknown"
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         """本地多模态大模型提取图片所有文字（通用OCR）"""
 
         if not isinstance(param, ParameterLoaderImageOCRModel):
@@ -122,5 +122,5 @@ class LoaderImageOCRModel(BaseLoader):
             "image_type":param.pathfile.suffix[1:] if param.pathfile.suffix else "unknown"
         }
 
-        return ResultLoder([Document(page_content=res_text, metadata=metadata)])
+        return ResultLoader([Document(page_content=res_text, metadata=metadata)])
             

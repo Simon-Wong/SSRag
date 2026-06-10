@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pathlib import Path
 from typing import IO
@@ -31,7 +31,7 @@ class LoaderPPT(BaseLoader):
     def __init__(self):
         super().__init__()
     
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         if isinstance(param, ParameterLoaderPPT):
             param:ParameterLoaderPPT
             all_documents=[]        
@@ -50,6 +50,6 @@ class LoaderPPT(BaseLoader):
 
                 all_documents.append(Document(page_content=element.text, metadata= metadata))
 
-            return ResultLoder(all_documents) 
+            return ResultLoader(all_documents) 
         else:
             raise ValueError("param must be a ParameterLoaderPPT")

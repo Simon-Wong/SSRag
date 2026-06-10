@@ -15,7 +15,7 @@ class BaseParameterLoader:
         self.pathfile = Path(pathfile).resolve()
         
 
-class BaseResultLoder(ABC):
+class BaseResultLoader(ABC):
     def __init__(self):
         pass
 
@@ -27,7 +27,7 @@ class BaseResultLoder(ABC):
         '''    
         pass
 
-class ResultLoder(BaseResultLoder):
+class ResultLoader(BaseResultLoader):
     '''一个资源结果基类'''
     src_data: list[Document]|list[Element] = None # 资源文档列表
     src_type: str = None # 资源类型
@@ -63,5 +63,5 @@ class BaseLoader(ABC):
         pass
 
     @abstractmethod
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         pass

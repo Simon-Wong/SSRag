@@ -1,4 +1,4 @@
-from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoder,ResultLoder
+from ..LoaderBase import BaseParameterLoader, BaseLoader, BaseResultLoader,ResultLoader
 
 from pdf2image import convert_from_path
 
@@ -53,7 +53,7 @@ class LoaderPDFModel(BaseLoader):
 
         return image_paths
 
-    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoder:
+    def load(self,param: BaseParameterLoader, **kwarg)->BaseResultLoader:
         """本地多模态大模型提取PDF内容"""
 
         if not isinstance(param, ParameterLoaderPDFModel):
@@ -131,7 +131,7 @@ class LoaderPDFModel(BaseLoader):
                 except Exception:
                     pass
         
-        return ResultLoder(all_documents)
+        return ResultLoader(all_documents)
 
 
 
