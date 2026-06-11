@@ -1,3 +1,4 @@
 from .splitter_char_text import ParameterSplitterCharText,SplitterCharText
 from .splitter_char_text_recursive import ParameterSplitterCharTextRecursive,SplitterCharTextRecursive
 from .splitter_sentence import ParameterSplitterSentence,SplitterSentence
+from .splitter_semantic import ParameterSplitterSemantic,SplitterSemantic

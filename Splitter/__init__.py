@@ -2,3 +2,4 @@ from .SplitterBase import BaseParameterSplitter, BaseResultSplitter, ResultSplit
 from .SplitterImp import ParameterSplitterCharText,SplitterCharText
 from .SplitterImp import ParameterSplitterCharTextRecursive,SplitterCharTextRecursive
 from .SplitterImp import ParameterSplitterSentence,SplitterSentence
+from .SplitterImp import ParameterSplitterSemantic,SplitterSemantic
