@@ -4,6 +4,7 @@ from abc import ABC,abstractmethod
 
 from langchain_core.documents import Document
 from unstructured.documents.elements import Element 
+from llama_index.core.schema import BaseNode
 
 '''
 
@@ -37,9 +38,9 @@ class BaseResultSplitter(ABC):
 
 class ResultSplitter(BaseResultSplitter):
     '''一个分割器结果基类'''
-    src_data: list[Document]|list[Element] = None # 资源文档列表
+    src_data: list[Document]|list[BaseNode] = None # 资源文档列表
     src_type: str = None # 资源类型
-    def __init__(self, data: list[Document]|list[Element]):
+    def __init__(self, data: list[Document]|list[BaseNode]):
         assert isinstance(data, list), "data must be a list"
         self.src_data = data
         self.src_type = next(elem.__class__.__name__ for elem in data if elem is not None) or 'Unknown'
@@ -60,7 +61,7 @@ class ResultSplitter(BaseResultSplitter):
             if len(valid_elements) == 0:
                 return []
             
-            docs = [Document(page_content=elem.text, metadata=elem.metadata.to_dict()) for elem in valid_elements]
+            docs = [Document(page_content=elem.text, metadata=elem.metadata,id=i,id_=elem.id_) for i,elem in enumerate(valid_elements)]
             return docs
 
 
