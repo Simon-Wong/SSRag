@@ -1,1 +1,2 @@
 from .splitter_char_text import ParameterSplitterCharText,SplitterCharText
+from .splitter_char_text_recursive import ParameterSplitterCharTextRecursive,SplitterCharTextRecursive
